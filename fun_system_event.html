@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <title>System Event Terminal - Ibrahim Alkaraki</title>
+    <style>
+      :root {
+        --bg-main: #050810;
+        --bg-panel: #0c111b;
+        --accent: #10b981;
+        --accent-soft: #22c55e;
+        --accent-warn: #f97316;
+        --text-main: #e5e7eb;
+        --text-muted: #9ca3af;
+        --border-subtle: #1f2937;
+        --font-mono: "Fira Code", "Cascadia Code", "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+        color: var(--text-main);
+        font-family: var(--font-mono);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .terminal {
+        width: 90%;
+        max-width: 700px;
+        background: #0a0e1a;
+        border: 2px solid var(--accent);
+        border-radius: 8px;
+        box-shadow: 0 0 40px rgba(16, 185, 129, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.8);
+        padding: 1.5rem;
+        position: relative;
+        animation: glowPulse 3s ease-in-out infinite;
+      }
+
+      @keyframes glowPulse {
+        0%, 100% { box-shadow: 0 0 40px rgba(16, 185, 129, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.8); }
+        50% { box-shadow: 0 0 60px rgba(16, 185, 129, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.8); }
+      }
+
+      .terminal-header {
+        border-bottom: 1px solid var(--border-subtle);
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .terminal-title {
+        color: var(--accent-warn);
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+
+      .terminal-buttons {
+        display: flex;
+        gap: 0.3rem;
+      }
+
+      .term-btn {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      .term-btn.close { background: #ef4444; }
+      .term-btn.minimize { background: var(--accent-warn); }
+      .term-btn.maximize { background: var(--accent-soft); }
+
+      .terminal-content {
+        height: 400px;
+        overflow-y: auto;
+        color: var(--accent-soft);
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+
+      .terminal-content::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .terminal-content::-webkit-scrollbar-track {
+        background: #020617;
+      }
+
+      .terminal-content::-webkit-scrollbar-thumb {
+        background: var(--accent);
+        border-radius: 3px;
+      }
+
+      .terminal-content::-webkit-scrollbar-thumb:hover {
+        background: var(--accent-soft);
+      }
+
+      .log-line {
+        opacity: 0;
+        animation: typeIn 0.05s ease-out forwards;
+        word-wrap: break-word;
+      }
+
+      @keyframes typeIn {
+        from {
+          opacity: 0;
+          transform: translateX(-5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .log-ok { color: var(--accent-soft); }
+      .log-alert { color: #ff6b6b; animation: pulse 1s ease-in-out infinite !important; }
+      .log-action { color: var(--accent-warn); }
+      .log-secure { color: var(--accent); }
+      .log-note { color: var(--text-muted); }
+      .log-status { color: var(--accent); }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 8px;
+        height: 1rem;
+        background: var(--accent);
+        animation: blink 1s ease-in-out infinite;
+        margin-left: 2px;
+      }
+
+      @keyframes blink {
+        0%, 49%, 100% { opacity: 1; }
+        50%, 99% { opacity: 0; }
+      }
+
+      .buttons-container {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-subtle);
+        text-align: center;
+      }
+
+      .btn {
+        display: inline-block;
+        margin: 0.5rem;
+        padding: 0.6rem 1.5rem;
+        background: #111827;
+        color: var(--text-main);
+        border: 1px solid var(--border-subtle);
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        transition: all 0.2s ease;
+        text-decoration: none;
+      }
+
+      .btn:hover {
+        border-color: var(--accent);
+        background: #020617;
+        transform: translateY(-2px);
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: #050810;
+        border-color: var(--accent);
+      }
+
+      .btn-primary:hover {
+        background: var(--accent-soft);
+        border-color: var(--accent-soft);
+      }
+
+      @media (max-width: 640px) {
+        .terminal {
+          width: 95%;
+          padding: 1rem;
+        }
+
+        .terminal-content {
+          height: 300px;
+          font-size: 0.85rem;
+        }
+      }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-title">System Event Terminal</div>
+            <div class="terminal-buttons">
+                <div class="term-btn close"></div>
+                <div class="term-btn minimize"></div>
+                <div class="term-btn maximize"></div>
+            </div>
+        </div>
+        <div class="terminal-content" id="terminal"></div>
+        <div class="buttons-container">
+            <button class="btn btn-primary" onclick="location.href='/'">← Back to Resume</button>
+            <button class="btn" onclick="location.reload()">🔄 Run Again</button>
+        </div>
+    </div>
+
+    <script>
+        const scenarios = [
+            {
+                title: "SYSTEM BOOT SEQUENCE",
+                lines: [
+                    { text: "[BOOT] Initializing Ibrahim-Host-01...", class: "log-action" },
+                    { text: "[OK] BIOS checks passed.", class: "log-ok" },
+                    { text: "[OK] Network interfaces up.", class: "log-ok" },
+                    { text: "[SECURE] SSH hardening rules loaded.", class: "log-secure" },
+                    { text: "[OK] PostgreSQL database service online.", class: "log-ok" },
+                    { text: "[READY] Lab environment online. Awaiting next challenge.", class: "log-status" }
+                ]
+            },
+            {
+                title: "SECURITY INCIDENT RESPONSE",
+                lines: [
+                    { text: "[ALERT] Suspicious traffic detected on vlan-sec-10.", class: "log-alert" },
+                    { text: "[ACTION] Applying ACL rule set: BLOCK_EXTERNAL_SSH.", class: "log-action" },
+                    { text: "[OK] Rate limiting engaged on port 22.", class: "log-ok" },
+                    { text: "[LOG] Incident recorded for review.", class: "log-note" },
+                    { text: "[STATUS] Traffic contained. No user impact.", class: "log-status" },
+                    { text: "[NOTE] Always verify, never assume. Back to work. 🔒", class: "log-note" }
+                ]
+            },
+            {
+                title: "MAINTENANCE WINDOW COMPLETE",
+                lines: [
+                    { text: "[MAINT] Scheduled service window started.", class: "log-action" },
+                    { text: "[TASK] Patching Linux servers and updating firewall rules...", class: "log-action" },
+                    { text: "[OK] AlmaLinux kernel updated to latest patch.", class: "log-ok" },
+                    { text: "[OK] Windows Server Group Policy refreshed.", class: "log-ok" },
+                    { text: "[CHECK] Health checks all green. SSL certs valid.", class: "log-status" },
+                    { text: "[COMPLETE] Change ticket closed successfully.", class: "log-ok" },
+                    { text: "[RESULT] Environment more secure than 10 minutes ago. ✓", class: "log-secure" }
+                ]
+            },
+            {
+                title: "DATABASE OPTIMIZATION RUN",
+                lines: [
+                    { text: "[INIT] Starting PostgreSQL maintenance routine...", class: "log-action" },
+                    { text: "[TASK] Running VACUUM and ANALYZE on production DB...", class: "log-action" },
+                    { text: "[OK] Dead tuples removed. Table bloat reduced.", class: "log-ok" },
+                    { text: "[OK] Query optimizer stats refreshed.", class: "log-ok" },
+                    { text: "[PERF] Query response time improved by 23%.", class: "log-status" },
+                    { text: "[SUCCESS] Database optimization complete! 🚀", class: "log-ok" }
+                ]
+            }
+        ];
+
+        function displayTerminal() {
+            const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];
+            const terminal = document.getElementById('terminal');
+            terminal.innerHTML = '';
+
+            let delay = 0;
+            scenario.lines.forEach((line, index) => {
+                setTimeout(() => {
+                    const logLine = document.createElement('div');
+                    logLine.className = `log-line ${line.class}`;
+                    logLine.textContent = line.text;
+                    terminal.appendChild(logLine);
+                    terminal.scrollTop = terminal.scrollHeight;
+                }, delay);
+                delay += 200 + Math.random() * 150;
+            });
+
+            setTimeout(() => {
+                const cursor = document.createElement('span');
+                cursor.className = 'cursor';
+                terminal.appendChild(cursor);
+                terminal.scrollTop = terminal.scrollHeight;
+            }, delay);
+        }
+
+        displayTerminal();
+
+        // ESC key to go back to resume
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                window.location.href = '/';
+            }
+        });
+    </script>
+</body>
+</html>

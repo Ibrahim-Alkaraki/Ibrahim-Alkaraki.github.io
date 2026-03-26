@@ -1,0 +1,1873 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <title>Ibrahim Alkaraki | Cybersecurity Student & Operations Manager</title>
+    <style>
+      :root {
+        --bg-main: #050810;
+        --bg-panel: #0c111b;
+        --bg-panel-alt: #0f172a;
+        --accent: #10b981;
+        --accent-soft: #22c55e;
+        --accent-warn: #f97316;
+        --text-main: #e5e7eb;
+        --text-muted: #9ca3af;
+        --border-subtle: #1f2937;
+        --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --font-mono: "Fira Code", "Cascadia Code", "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+        background-attachment: fixed;
+        color: var(--text-main);
+        font-family: var(--font-sans);
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* Subtle animated background grid */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+          repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(16, 185, 129, 0.02) 49px, rgba(16, 185, 129, 0.02) 50px),
+          repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(16, 185, 129, 0.02) 49px, rgba(16, 185, 129, 0.02) 50px);
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* Network node background animation */
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 80%, rgba(34, 197, 94, 0.05) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: 1;
+        animation: float 20s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(10px, -10px); }
+      }
+
+      header {
+        background: linear-gradient(120deg, #020617, #111827);
+        border-bottom: 1px solid var(--border-subtle);
+        padding: 1.5rem 1rem 1.1rem 1rem;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 25;
+        position: relative;
+      }
+
+      /* Animated header scan line effect */
+      header::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        animation: scan 3s ease-in-out infinite;
+      }
+
+      @keyframes scan {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+      }
+
+      header h1 {
+        margin: 0;
+        font-family: var(--font-mono);
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        position: relative;
+        z-index: 2;
+        animation: typewriter 1.5s steps(20, end) 0.5s 1 ease-out forwards;
+        opacity: 0;
+      }
+
+      @keyframes typewriter {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      header h1::after {
+        content: "";
+        position: absolute;
+        right: -8px;
+        top: 0;
+        height: 100%;
+        width: 2px;
+        background: var(--accent);
+        animation: blink 1s ease-in-out infinite;
+      }
+
+      @keyframes blink {
+        0%, 49%, 100% { opacity: 1; }
+        50%, 99% { opacity: 0; }
+      }
+
+      header h1::before {
+        content: "$ ";
+        color: var(--accent);
+      }
+
+      header p {
+        margin: 0.35rem 0 0;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+      }
+
+      header p span {
+        font-weight: 600;
+        letter-spacing: 0.05em;
+      }
+
+      nav {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1.2rem;
+        background: #020617;
+        border-bottom: 1px solid var(--border-subtle);
+        padding: 0.45rem 1rem;
+        font-family: var(--font-mono);
+        font-size: 0.83rem;
+      }
+
+      nav a {
+        color: var(--text-muted);
+        text-decoration: none;
+        position: relative;
+        padding-bottom: 0.15rem;
+      }
+
+      nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: width 0.2s ease-out;
+      }
+
+      nav a:hover {
+        color: var(--accent);
+      }
+
+      nav a:hover::after {
+        width: 100%;
+      }
+
+      main {
+        max-width: 980px;
+        margin: 2rem auto 4.5rem auto;
+        padding: 0 1rem 3rem 1rem;
+      }
+
+      section {
+        margin-bottom: 2.5rem;
+        background: linear-gradient(135deg, var(--bg-panel) 0%, var(--bg-panel-alt) 100%);
+        border-radius: 10px;
+        border: 1px solid var(--border-subtle);
+        padding: 1.5rem 1.75rem;
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+        position: relative;
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
+
+      /* Animated left border accent */
+      section::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(180deg, var(--accent), var(--accent-soft), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      section:hover {
+        border-color: var(--accent);
+        box-shadow: 0 24px 60px rgba(16, 185, 129, 0.15), 0 0 30px rgba(16, 185, 129, 0.1);
+      }
+
+      section:hover::before {
+        opacity: 1;
+      }
+
+      section h2 {
+        margin-top: 0;
+        margin-bottom: 0.8rem;
+        font-family: var(--font-mono);
+        font-size: 1.1rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent-soft);
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      section h2::before {
+        content: "// ";
+        color: var(--accent-warn);
+      }
+
+      /* Status indicator dot */
+      section h2::after {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: var(--accent);
+        border-radius: 50%;
+        margin-left: auto;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { 
+          opacity: 1;
+          box-shadow: 0 0 0 0 var(--accent);
+        }
+        50% {
+          opacity: 0.8;
+        }
+        100% {
+          box-shadow: 0 0 0 5px rgba(16, 185, 129, 0);
+        }
+      }
+
+      .intro {
+        text-align: left;
+      }
+
+      .intro p {
+        margin-top: 0.5rem;
+        color: var(--text-muted);
+      }
+
+      .contact-links a {
+        display: inline-block;
+        margin-right: 0.75rem;
+        margin-top: 0.5rem;
+        color: var(--accent);
+        text-decoration: none;
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+      }
+
+      .contact-links a:hover {
+        text-decoration: underline;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        margin: 1rem 0.6rem 0 0;
+        padding: 0.55rem 1.3rem;
+        background: #111827;
+        color: var(--text-main);
+        border-radius: 6px;
+        border: 1px solid var(--border-subtle);
+        font-size: 0.85rem;
+        font-family: var(--font-mono);
+        cursor: pointer;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5);
+        transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn::before {
+        content: "▶";
+        font-size: 0.7rem;
+        color: var(--accent);
+        transition: all 0.2s ease;
+      }
+
+      /* Glowing border effect on hover */
+      .btn::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        border-radius: 6px;
+      }
+
+      .btn:hover {
+        border-color: var(--accent);
+        background: linear-gradient(135deg, #111827, #1a2a3a);
+        transform: translateY(-2px);
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.4), 0 12px 28px rgba(0, 0, 0, 0.65);
+      }
+
+      .btn:hover::before {
+        color: var(--accent-soft);
+        transform: rotateZ(-5deg);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      }
+
+      p {
+        line-height: 1.6;
+        margin-top: 0.4rem;
+        color: var(--text-main);
+      }
+
+      ul {
+        padding-left: 1.2rem;
+      }
+
+      li {
+        margin-bottom: 0.45rem;
+        color: var(--text-muted);
+      }
+
+      li strong {
+        color: var(--accent-soft);
+        font-weight: 500;
+      }
+
+      .two-column {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .taglist span {
+        display: inline-block;
+        background: rgba(16, 185, 129, 0.08);
+        border: 1px solid rgba(16, 185, 129, 0.45);
+        color: var(--accent-soft);
+        padding: 0.23rem 0.6rem;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        margin: 0.22rem 0.22rem 0 0;
+        font-family: var(--font-mono);
+      }
+
+      .taglist span::before {
+        content: "#";
+        margin-right: 0.15rem;
+        color: var(--accent-warn);
+      }
+
+      h3 {
+        margin-top: 0.2rem;
+        font-size: 1rem;
+        font-weight: 500;
+        font-family: var(--font-mono);
+        color: #e5e7eb;
+      }
+
+      footer {
+        text-align: center;
+        color: var(--text-muted);
+        background: #020617;
+        border-top: 1px solid var(--border-subtle);
+        padding: 0.7rem 0 0.5rem 0;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        font-size: 0.8rem;
+        font-family: var(--font-mono);
+      }
+
+      footer span {
+        color: var(--accent-warn);
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none !important;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        animation: fadeIn 0.2s ease-out;
+      }
+
+      .modal[style*="display: block"] {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .modal-content {
+        background: linear-gradient(135deg, var(--bg-panel) 0%, var(--bg-panel-alt) 100%);
+        border: 1px solid var(--border-subtle);
+        padding: 2rem;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 500px;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        animation: slideDown 0.3s ease-out;
+      }
+
+      @keyframes slideDown {
+        from {
+          transform: translateY(-50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .modal-header {
+        font-family: var(--font-mono);
+        font-size: 1.1rem;
+        color: var(--accent-soft);
+        margin-bottom: 1rem;
+        margin-top: 0;
+      }
+
+      .modal-header::before {
+        content: "$ ";
+        color: var(--accent);
+      }
+
+      .close-modal {
+        color: var(--text-muted);
+        float: right;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+
+      .close-modal:hover {
+        color: var(--accent);
+      }
+
+      .contact-item {
+        background: #020617;
+        border: 1px solid var(--border-subtle);
+        padding: 1rem;
+        border-radius: 6px;
+        margin-bottom: 0.8rem;
+        font-family: var(--font-mono);
+      }
+
+      .contact-label {
+        color: var(--accent-warn);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        margin-bottom: 0.3rem;
+      }
+
+      .contact-value {
+        color: var(--accent-soft);
+        word-break: break-all;
+        font-size: 0.95rem;
+        margin: 0.5rem 0;
+      }
+
+      .copy-btn {
+        display: inline-block;
+        background: var(--accent);
+        color: #050810;
+        border: none;
+        padding: 0.4rem 0.8rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        transition: all 0.2s;
+        margin-top: 0.5rem;
+      }
+
+      .copy-btn:hover {
+        background: var(--accent-soft);
+        transform: translateY(-1px);
+      }
+
+      .copy-btn.copied {
+        background: #059669;
+      }
+
+      .copy-feedback {
+        color: var(--accent-soft);
+        font-size: 0.8rem;
+        margin-top: 0.3rem;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .copy-feedback.show {
+        opacity: 1;
+      }
+
+      /* Quote/Fun message */
+      .fun-quote {
+        background: rgba(16, 185, 129, 0.05);
+        border-left: 2px solid var(--accent);
+        padding: 0.8rem;
+        border-radius: 4px;
+        margin-top: 1rem;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        font-style: italic;
+      }
+
+      /* Interactive Entry Styles */
+      .interactive-entry {
+        position: relative;
+        padding-right: 2rem;
+        transition: all 0.2s ease;
+      }
+
+      .interactive-entry:hover {
+        padding-left: 0.5rem;
+        color: var(--accent-soft);
+      }
+
+      .hint-btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+        background: none;
+        border: none;
+        color: var(--accent);
+        font-size: 1rem;
+        cursor: pointer;
+        padding: 0.2rem 0.4rem;
+        opacity: 0;
+        transition: all 0.2s;
+        font-family: var(--font-mono);
+        text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+      }
+
+      .interactive-entry:hover .hint-btn {
+        opacity: 1;
+        transform: scale(1.3) translateX(-0.3rem);
+      }
+
+      .hint-btn:hover {
+        color: var(--accent-soft);
+        transform: scale(1.4) rotate(90deg) translateX(-0.3rem);
+        transition: all 0.3s;
+        text-shadow: 0 0 20px rgba(34, 197, 94, 0.8);
+      }
+
+      .hint-modal {
+        display: none;
+        position: fixed;
+        z-index: 1001;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        animation: fadeIn 0.2s ease-out;
+      }
+
+      .hint-modal-content {
+        background: linear-gradient(135deg, var(--bg-panel) 0%, var(--bg-panel-alt) 100%);
+        border: 2px solid var(--accent);
+        margin: 20% auto;
+        padding: 2rem;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 600px;
+        box-shadow: 0 0 40px rgba(16, 185, 129, 0.3);
+        animation: slideDown 0.3s ease-out;
+      }
+
+      .hint-modal-title {
+        font-family: var(--font-mono);
+        font-size: 1.2rem;
+        color: var(--accent-soft);
+        margin: 0 0 1rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .hint-modal-title::before {
+        content: "»";
+        font-size: 1.5rem;
+      }
+
+      .hint-modal-text {
+        color: var(--text-main);
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+      }
+
+      .hint-modal-fun {
+        background: rgba(16, 185, 129, 0.1);
+        border-left: 3px solid var(--accent-warn);
+        padding: 0.8rem;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        color: var(--accent-warn);
+        font-size: 0.85rem;
+        font-style: italic;
+      }
+
+      .close-hint {
+        color: var(--text-muted);
+        float: right;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+
+      .close-hint:hover {
+        color: var(--accent);
+      }
+
+      .hint-buttons {
+        display: flex;
+        gap: 0.8rem;
+        justify-content: flex-end;
+      }
+
+      .hint-btn-close {
+        background: #111827;
+        color: var(--text-main);
+        border: 1px solid var(--border-subtle);
+        padding: 0.5rem 1.2rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        transition: all 0.2s;
+      }
+
+      .hint-btn-close:hover {
+        border-color: var(--accent);
+        background: var(--accent);
+        color: #050810;
+      }
+
+      .unlocked-badge {
+        display: inline-block;
+        background: rgba(34, 197, 94, 0.2);
+        border: 1px solid var(--accent-soft);
+        color: var(--accent-soft);
+        padding: 0.2rem 0.6rem;
+        border-radius: 999px;
+        font-size: 0.7rem;
+        margin-left: 0.5rem;
+        font-family: var(--font-mono);
+        animation: bounce 0.6s ease-out;
+      }
+
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+      }
+
+      .stats-bar {
+        background: #0a0e1a;
+        border: 1px solid var(--border-subtle);
+        border-radius: 6px;
+        padding: 0.8rem 1rem;
+        margin-top: 1rem;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .stats-bar span {
+        color: var(--accent-soft);
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      .status-indicator {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        background: var(--accent);
+        border-radius: 50%;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      /* Daily Tip */
+      .daily-tip {
+        background: rgba(16, 185, 129, 0.08);
+        border: 1px solid rgba(16, 185, 129, 0.25);
+        border-radius: 6px;
+        padding: 0.8rem 1rem;
+        margin-top: 1rem;
+        color: var(--accent-soft);
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        line-height: 1.5;
+        position: relative;
+      }
+
+      .daily-tip::before {
+        content: "Tip #";
+        color: var(--accent-warn);
+        font-weight: bold;
+        margin-right: 0.3rem;
+      }
+
+      .daily-tip-content {
+        display: inline;
+      }
+
+      .daily-tip-date {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        display: block;
+        margin-top: 0.4rem;
+        opacity: 0.8;
+      }
+
+      /* Proficiency bars for skills */
+      .skill-proficiency {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.3rem;
+        margin-left: 1rem;
+        font-size: 0.75rem;
+      }
+
+      .proficiency-bar {
+        flex: 1;
+        height: 5px;
+        background: rgba(16, 185, 129, 0.2);
+        border-radius: 999px;
+        overflow: hidden;
+        max-width: 150px;
+      }
+
+      .proficiency-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+        border-radius: 999px;
+        transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      .proficiency-label {
+        color: var(--accent-soft);
+        font-weight: 500;
+      }
+
+      /* Experience timeline */
+      .experience-item {
+        padding-left: 1.5rem;
+        position: relative;
+        margin-bottom: 1.5rem;
+      }
+
+      .experience-item::before {
+        content: "";
+        position: absolute;
+        left: -0.25rem;
+        top: 0.35rem;
+        width: 10px;
+        height: 10px;
+        background: var(--accent);
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+        transition: all 0.3s ease;
+      }
+
+      .experience-item::after {
+        content: "";
+        position: absolute;
+        left: 2px;
+        top: 20px;
+        width: 2px;
+        height: calc(100% + 1.5rem);
+        background: linear-gradient(180deg, var(--accent), transparent);
+        opacity: 0.3;
+      }
+
+      .experience-item:last-child::after {
+        display: none;
+      }
+
+      .experience-item:hover::before {
+        transform: scale(1.5);
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
+      }
+
+      .experience-item p {
+        margin: 0.3rem 0;
+      }
+
+      .experience-meta {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        font-style: italic;
+      }
+
+      .experience-status {
+        display: inline-block;
+        font-size: 0.7rem;
+        padding: 0.2rem 0.5rem;
+        background: rgba(34, 197, 94, 0.15);
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        color: var(--accent-soft);
+        border-radius: 999px;
+        margin-left: 0.5rem;
+        font-family: var(--font-mono);
+      }
+
+      /* Keyboard shortcuts modal */
+      .shortcuts-modal {
+        display: none;
+        position: fixed;
+        z-index: 1002;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.85);
+        animation: fadeIn 0.2s ease-out;
+      }
+
+      .shortcuts-content {
+        background: linear-gradient(135deg, var(--bg-panel) 0%, var(--bg-panel-alt) 100%);
+        border: 2px solid var(--accent);
+        margin: 10% auto;
+        padding: 2rem;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 700px;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 0 60px rgba(16, 185, 129, 0.4);
+        animation: slideDown 0.3s ease-out;
+      }
+
+      .shortcuts-header {
+        font-family: var(--font-mono);
+        font-size: 1.4rem;
+        color: var(--accent-soft);
+        margin: 0 0 1.5rem 0;
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 0.8rem;
+      }
+
+      .shortcuts-header::before {
+        content: "";
+        margin-right: 0.5rem;
+      }
+
+      .shortcut-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem 0;
+        border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+        margin-bottom: 0.5rem;
+      }
+
+      .shortcut-item:last-child {
+        border-bottom: none;
+      }
+
+      .shortcut-key {
+        background: #111827;
+        border: 1px solid var(--border-subtle);
+        padding: 0.3rem 0.8rem;
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        color: var(--accent);
+        font-weight: bold;
+        font-size: 0.85rem;
+      }
+
+      .shortcut-desc {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        flex: 1;
+        margin-left: 1rem;
+      }
+
+      .close-shortcuts {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        color: var(--text-muted);
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+
+      .close-shortcuts:hover {
+        color: var(--accent);
+      }
+
+      /* ASCII art border */
+      .ascii-decoration {
+        color: rgba(16, 185, 129, 0.3);
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        text-align: center;
+        margin: 1rem 0;
+        white-space: pre;
+      }
+
+      /* Floating Help Button */
+      .floating-help {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+        border: 2px solid var(--accent-soft);
+        color: #050810;
+        font-size: 1.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+        box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        font-family: var(--font-mono);
+      }
+
+      .floating-help:hover {
+        transform: scale(1.15) rotate(15deg);
+        box-shadow: 0 12px 36px rgba(16, 185, 129, 0.6);
+      }
+
+      .floating-help:active {
+        transform: scale(1.05);
+      }
+
+      /* Page Box Styles */
+      .page-box {
+        background: linear-gradient(135deg, var(--bg-panel) 0%, var(--bg-panel-alt) 100%);
+        border: 2px solid var(--accent);
+        border-radius: 10px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        box-shadow: 0 0 40px rgba(16, 185, 129, 0.2);
+        animation: fadeInUp 0.6s ease-out;
+      }
+
+      .page-box-title {
+        font-family: var(--font-mono);
+        font-size: 1.3rem;
+        color: var(--accent-soft);
+        margin: 0 0 1rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+      }
+
+      .page-box-title::before {
+        content: "$ ";
+        color: var(--accent);
+      }
+
+      .page-box-content {
+        color: var(--text-main);
+        line-height: 1.7;
+        font-size: 0.95rem;
+      }
+
+      .page-box-content p {
+        margin: 0.5rem 0;
+      }
+
+      .learning-timeline {
+        margin-top: 1.5rem;
+      }
+
+      .timeline-item {
+        padding-left: 2rem;
+        position: relative;
+        margin-bottom: 1.2rem;
+        opacity: 0;
+        animation: fadeInUp 0.6s ease-out forwards;
+      }
+
+      .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+      .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+      .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+      .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+      .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.35rem;
+        width: 12px;
+        height: 12px;
+        background: var(--accent);
+        border-radius: 50%;
+        box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+        transition: all 0.3s ease;
+      }
+
+      .timeline-item::after {
+        content: "";
+        position: absolute;
+        left: 4.5px;
+        top: 20px;
+        width: 2px;
+        height: calc(100% + 1.2rem);
+        background: linear-gradient(180deg, var(--accent), transparent);
+        opacity: 0.4;
+      }
+
+      .timeline-item:last-child::after {
+        display: none;
+      }
+
+      .timeline-item:hover::before {
+        transform: scale(1.5);
+        box-shadow: 0 0 20px rgba(34, 197, 94, 0.8);
+      }
+
+      .timeline-label {
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        color: var(--accent-warn);
+        text-transform: uppercase;
+        margin-bottom: 0.2rem;
+      }
+
+      .timeline-title {
+        font-weight: 600;
+        color: var(--accent-soft);
+        margin-bottom: 0.3rem;
+      }
+
+      .timeline-desc {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 768px) {
+        .floating-help {
+          width: 45px;
+          height: 45px;
+          font-size: 1.3rem;
+          top: 1.5rem;
+          right: 1.5rem;
+        }
+
+        .page-box {
+          padding: 1.5rem;
+          margin: 1rem 0;
+        }
+
+        .page-box-title {
+          font-size: 1.1rem;
+        }
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      section {
+        animation: fadeInUp 0.6s ease-out backwards;
+      }
+
+      section:nth-child(1) { animation-delay: 0.1s; }
+      section:nth-child(2) { animation-delay: 0.2s; }
+      section:nth-child(3) { animation-delay: 0.3s; }
+      section:nth-child(4) { animation-delay: 0.4s; }
+      section:nth-child(5) { animation-delay: 0.5s; }
+      section:nth-child(6) { animation-delay: 0.6s; }
+      section:nth-child(7) { animation-delay: 0.7s; }
+
+      /* Enhanced taglist with hover effects */
+      .taglist span {
+        display: inline-block;
+        background: rgba(16, 185, 129, 0.08);
+        border: 1px solid rgba(16, 185, 129, 0.45);
+        color: var(--accent-soft);
+        padding: 0.23rem 0.6rem;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        margin: 0.22rem 0.22rem 0 0;
+        font-family: var(--font-mono);
+        transition: all 0.3s ease;
+        cursor: default;
+      }
+
+      .taglist span:hover {
+        background: rgba(16, 185, 129, 0.2);
+        border-color: var(--accent-soft);
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+      }
+
+      @media (max-width: 768px) {
+        section {
+          padding: 1.2rem 1.1rem;
+        }
+
+        header {
+          padding: 1.1rem 0.7rem 0.9rem 0.7rem;
+        }
+
+        main {
+          margin-top: 1.5rem;
+        }
+      }
+    </style>
+    <script>
+      const quotes = [
+        "\"The only way to do great work is to love what you do.\" - Steve Jobs",
+        "\"Cybersecurity is not about perfection, it's about preparation.\"",
+        "\"Every master was once a beginner.\" - Robin Sharma",
+        "\"In cybersecurity, paranoia is a feature, not a bug.\"",
+        "\"The best time to plant a tree was 20 years ago. The second best time is now.\" - Chinese Proverb",
+        "\"Stay curious, keep learning, and never stop improving.\"",
+        "\"Security is not a product, but a process.\" - Bruce Schneier",
+        "\"Remember: chmod 000 is not a backup strategy.\"",
+        "\"Your code is a reflection of your thinking. Make it clear.\"",
+        "\"Automation: because repetition is the enemy of excellence.\""
+      ];
+
+      const dailyTips = [
+        "Master one technology deeply before spreading yourself thin across many.",
+        "Document your learning process—future you will thank present you.",
+        "Always test your security configurations in a lab environment first.",
+        "Read other people's code daily. You'll learn more patterns and best practices.",
+        "Security is a mindset, not a tool. Think like an attacker to defend like a pro.",
+        "Build projects that solve real problems you encounter, not just tutorials.",
+        "Network with peers in cybersecurity. Knowledge sharing accelerates growth.",
+        "Automate repetitive tasks first—that's where human error causes breaches.",
+        "Write clear documentation. Your future self and your team will appreciate it.",
+        "Contribute to open-source. It's how you level up and help the community.",
+        "Stay updated on the latest vulnerabilities and patches in your stack.",
+        "Remember: the best security implementation is one that actually gets deployed.",
+        "Run a homelab. Real hands-on experience beats a thousand tutorials.",
+        "Break things intentionally in a controlled environment to learn how they work.",
+        "Teach what you learn. Explaining concepts solidifies your understanding.",
+        "Keep a 'learning journal' with notes on problems you solved.",
+        "Cybersecurity is a marathon, not a sprint. Pace yourself.",
+        "Your first solution might not be the best—iterate and refactor.",
+        "Ask 'why' five times. Root causes are often surprising.",
+        "Build in public. Share progress, failures, and victories with others."
+      ];
+
+      function getDailyTip() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const dateString = `${year}-${month}-${day}`;
+        
+        // Simple hash function to convert date to index
+        let hash = 0;
+        for (let i = 0; i < dateString.length; i++) {
+          const char = dateString.charCodeAt(i);
+          hash = ((hash << 5) - hash) + char;
+          hash = hash & hash; // Convert to 32-bit integer
+        }
+        
+        const tipIndex = Math.abs(hash) % dailyTips.length;
+        const tipNumber = tipIndex + 1;
+        
+        return {
+          number: tipNumber,
+          text: dailyTips[tipIndex],
+          dateString: `${month}/${day}/${year}`
+        };
+      }
+
+      function getRandomQuote() {
+        return quotes[Math.floor(Math.random() * quotes.length)];
+      }
+
+      function showAlert(msg) {
+        alert(msg);
+      }
+
+      function openContactModal(type) {
+        const modal = document.getElementById('contactModal');
+        const contactType = document.getElementById('contactType');
+        const contactDisplay = document.getElementById('contactDisplay');
+
+        if (type === 'email') {
+          contactType.textContent = 'Email';
+          contactDisplay.innerHTML = `
+            <div class="contact-item">
+              <div class="contact-label">Email Address</div>
+              <div class="contact-value" id="emailValue">ibrahim.alkaraki@gmail.com</div>
+              <button class="copy-btn" onclick="copyToClipboard('emailValue', 'emailFeedback')">Copy Email</button>
+              <div class="copy-feedback" id="emailFeedback">Copied!</div>
+              <div class="fun-quote">${getRandomQuote()}</div>
+            </div>
+          `;
+        } else if (type === 'phone') {
+          contactType.textContent = 'Phone';
+          contactDisplay.innerHTML = `
+            <div class="contact-item">
+              <div class="contact-label">Phone Number</div>
+              <div class="contact-value" id="phoneValue">+1 204-979-7305</div>
+              <button class="copy-btn" onclick="copyToClipboard('phoneValue', 'phoneFeedback')">Copy Phone</button>
+              <div class="copy-feedback" id="phoneFeedback">Copied!</div>
+              <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">
+                Feel free to text or call—I'm usually available!
+              </p>
+              <div class="fun-quote">${getRandomQuote()}</div>
+            </div>
+          `;
+        } else if (type === 'github') {
+          contactType.textContent = 'GitHub';
+          contactDisplay.innerHTML = `
+            <div class="contact-item">
+              <div class="contact-label">GitHub Profile</div>
+              <div class="contact-value" id="githubValue">github.com/Ibrahim-Alkaraki</div>
+              <button class="copy-btn" onclick="copyToClipboard('githubValue', 'githubFeedback')">Copy GitHub</button>
+              <div class="copy-feedback" id="githubFeedback">Copied!</div>
+              <a href="https://github.com/Ibrahim-Alkaraki" target="_blank" style="display: inline-block; margin-top: 1rem; color: var(--accent); text-decoration: none; font-family: var(--font-mono); font-size: 0.85rem; border: 1px solid var(--accent); padding: 0.5rem 1rem; border-radius: 4px; transition: all 0.2s;" onmouseover="this.style.background='rgba(16,185,129,0.1)'" onmouseout="this.style.background='transparent'">Visit GitHub →</a>
+              <div class="fun-quote">${getRandomQuote()}</div>
+            </div>
+          `;
+        }
+
+        modal.style.display = 'block';
+      }
+
+      function openSayHi() {
+        const modal = document.getElementById('sayHiModal');
+        modal.style.display = 'block';
+      }
+
+      function closeSayHi() {
+        document.getElementById('sayHiModal').style.display = 'none';
+      }
+
+      function openLearningJourney() {
+        const modal = document.getElementById('learningModal');
+        modal.style.display = 'block';
+      }
+
+      function closeLearningJourney() {
+        document.getElementById('learningModal').style.display = 'none';
+      }
+
+      function closeContactModal() {
+        document.getElementById('contactModal').style.display = 'none';
+      }
+
+      function copyToClipboard(elementId, feedbackId) {
+        const element = document.getElementById(elementId);
+        const text = element.textContent;
+
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(() => {
+            const feedback = document.getElementById(feedbackId);
+            feedback.classList.add('show');
+            setTimeout(() => {
+              feedback.classList.remove('show');
+            }, 2000);
+          });
+        } else {
+          // Fallback for older browsers
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          
+          const feedback = document.getElementById(feedbackId);
+          feedback.classList.add('show');
+          setTimeout(() => {
+            feedback.classList.remove('show');
+          }, 2000);
+        }
+      }
+
+      // Close modal when clicking outside
+      window.onclick = function(event) {
+        const contactModal = document.getElementById('contactModal');
+        const hintModal = document.getElementById('hintModal');
+        const shortcutsModal = document.getElementById('shortcutsModal');
+        const sayHiModal = document.getElementById('sayHiModal');
+        const learningModal = document.getElementById('learningModal');
+        if (event.target === contactModal) {
+          contactModal.style.display = 'none';
+        }
+        if (event.target === hintModal) {
+          hintModal.style.display = 'none';
+        }
+        if (event.target === shortcutsModal) {
+          shortcutsModal.style.display = 'none';
+        }
+        if (event.target === sayHiModal) {
+          sayHiModal.style.display = 'none';
+        }
+        if (event.target === learningModal) {
+          learningModal.style.display = 'none';
+        }
+      }
+
+      // Hint System
+      let unlockedHints = [];
+
+      const hints = {
+        'networking': {
+          title: 'Networking Mastery',
+          text: 'You\'ve unlocked the Networking skill! VLANs and routing are the backbone of secure network design. The ability to segment networks is critical in preventing lateral movement during a security breach.',
+          fun: 'Pro Tip: Did you know? Most security breaches don\'t break encryption—they exploit poor network segmentation!'
+        },
+        'os': {
+          title: 'Systems Administration',
+          text: 'Operating System administration is where theory meets practice. Mastering both Linux and Windows gives you flexibility in real-world environments where you\'ll encounter both.',
+          fun: 'Fun Fact: Linux (especially with systemd) is used in 96% of public cloud instances. Knowing it is essential!'
+        },
+        'cybersecurity': {
+          title: 'Cybersecurity Knowledge',
+          text: 'Security hardening is not about being paranoid—it\'s about being prepared. Every disabled service, every SSH key, every ACL is a layer of defense.',
+          fun: 'Remember: "Security is not a product, but a process." - Bruce Schneier'
+        },
+        'databases': {
+          title: 'Database Expertise',
+          text: 'Understanding database design and SQL queries is crucial. Bad database design can lead to performance issues and security vulnerabilities. Data is the new gold—protect it.',
+          fun: 'Mind Expansion: PostgreSQL has JSON support, making it incredibly flexible for modern applications!'
+        },
+        'scripting': {
+          title: 'Scripting & Automation',
+          text: 'Automation separates the experts from the beginners. Python, Bash, and PowerShell are your tools to work smarter, not harder. Repetitive tasks? Automate them!',
+          fun: 'Wisdom: "Any manual task done more than twice should be automated." - IT Operations Principle'
+        },
+        'gas-station': {
+          title: 'Operations Management',
+          text: 'Running a business teaches you real-world problem-solving under pressure. Leading a team, managing suppliers, tracking inventory—these skills transfer directly to IT operations and security management.',
+          fun: 'Insight: Business experience shows employers you understand the "why" behind security decisions, not just the "how".'
+        },
+        'student-work': {
+          title: 'Continuous Learning',
+          text: 'Lab work is where theory becomes muscle memory. Building actual networks in Cisco Packet Tracer, configuring real VMs, and troubleshooting issues teaches you to think like a professional.',
+          fun: 'Growth Mindset: "Experts are made, not born." Every expert you admire was once a beginner.'
+        }
+      };
+
+      function openHint(hintKey) {
+        const hint = hints[hintKey];
+        if (!hint) return;
+
+        document.getElementById('hintTitle').textContent = hint.title;
+        document.getElementById('hintText').textContent = hint.text;
+        document.getElementById('hintFun').textContent = hint.fun;
+
+        if (!unlockedHints.includes(hintKey)) {
+          unlockedHints.push(hintKey);
+          updateStatsBar();
+        }
+
+        document.getElementById('hintModal').style.display = 'block';
+      }
+
+      function closeHint() {
+        document.getElementById('hintModal').style.display = 'none';
+      }
+
+      function updateStatsBar() {
+        const explored = unlockedHints.length;
+        const total = Object.keys(hints).length;
+        const percentage = Math.round((explored / total) * 100);
+
+        const dailyTip = getDailyTip();
+        const statsHTML = `
+          <span>Unlocked: ${explored}/${total} (${percentage}%)</span>
+          <span class="status-indicator"></span>
+          ${explored === total ? '<span style="color: var(--accent-warn);">Master Unlocked!</span>' : ''}
+        `;
+        const statsBar = document.getElementById('statsBar');
+        if (statsBar) {
+          statsBar.innerHTML = statsHTML;
+        }
+
+        // Display daily tip in intro section
+        const introSection = document.querySelector('.intro');
+        if (introSection && !document.getElementById('dailyTipElement')) {
+          const tipElement = document.createElement('div');
+          tipElement.id = 'dailyTipElement';
+          tipElement.className = 'daily-tip';
+          tipElement.innerHTML = `
+            <span class="daily-tip-content">${dailyTip.number}: ${dailyTip.text}</span>
+            <span class="daily-tip-date">Today's tip (${dailyTip.dateString})</span>
+          `;
+          introSection.appendChild(tipElement);
+        }
+      }
+
+      // Run a random scenario when page loads
+      window.addEventListener('load', function() {
+        const quote = document.getElementById('pageQuote');
+        if (quote) {
+          quote.textContent = getRandomQuote();
+        }
+        updateStatsBar();
+        
+        // Animate proficiency bars on load
+        setTimeout(() => {
+          document.querySelectorAll('.proficiency-fill').forEach(bar => {
+            const width = bar.getAttribute('data-width');
+            bar.style.width = width + '%';
+          });
+        }, 300);
+
+        // Keyboard shortcuts listener
+        document.addEventListener('keydown', (e) => {
+          // Press ? to show shortcuts
+          if (e.key === '?' || (e.shiftKey && e.key === '/')) {
+            e.preventDefault();
+            openShortcuts();
+          }
+          // Press Escape to close modals
+          if (e.key === 'Escape') {
+            closeScriptModal();
+            closeShortcuts();
+            closeHint();
+            closeContactModal();
+            closeSayHi();
+            closeLearningJourney();
+          }
+          // Press 'h' to scroll to home
+          if (e.key === 'h' || e.key === 'H') {
+            document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+
+      function openShortcuts() {
+        document.getElementById('shortcutsModal').style.display = 'block';
+      }
+
+      function closeShortcuts() {
+        document.getElementById('shortcutsModal').style.display = 'none';
+      }
+
+    </script>
+
+  </head>
+  <body>
+    <header id="home">
+      <h1>Ibrahim Alkaraki</h1>
+      <p>
+        <span style="font-family: var(--font-mono); color:#22c55e;">Role:</span>
+        Cybersecurity Student &amp; Operations Manager
+      </p>
+    </header>
+
+    <nav aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <main>
+      <section class="intro">
+        <h2>Resume</h2>
+        <p>
+          This page is served by <b>Python http.server</b> and acts as my resume,
+          showcasing my experience in IT, cybersecurity, and business operations.
+          Through hands-on labs and real-world management, I have built a solid foundation in technical skills and leadership.
+        </p>
+        <button class="btn" onclick="window.location.href='fun_system_event.html'" title="Launch the fun terminal experience!">PRESS ME</button>
+        <button class="btn" onclick="openSayHi()">Say Hi</button>
+        <button class="btn" onclick="openLearningJourney()">Learning Journey</button>
+        <button class="btn" onclick="window.open('https://www.python.org', '_blank')">Visit Python.org</button>
+      </section>
+
+      <section id="about">
+        <h2>About Me</h2>
+        <p>
+          I am a cybersecurity and IT student at the Manitoba Institute of Trades and Technology (MITT), building skills across networking, Linux and Windows systems, databases, and cloud services.
+        </p>
+        <p>
+          I also manage a gas station business, leading a team, handling supplier relationships, tracking inventory, and keeping operations running under pressure. This experience sharpened my responsibility, problem-solving, time management, and communication skills—directly useful in technical and security roles.
+        </p>
+        <div class="contact-links">
+          <a href="javascript:void(0)" onclick="openContactModal('email')" style="cursor: pointer;">Email</a>
+          <a href="javascript:void(0)" onclick="openContactModal('phone')" style="cursor: pointer;">Phone</a>
+          <a href="javascript:void(0)" onclick="openContactModal('github')" style="cursor: pointer;">GitHub</a>
+        </div>
+      </section>
+
+      <section id="projects">
+        <h2>Interactive Demonstrations</h2>
+        <p>Click any button below to run an interactive Python application directly in your browser:</p>
+        <div style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 1rem;">
+          <button class="btn" onclick="runScript('password_manager_enhanced')">Password Manager</button>
+          <button class="btn" onclick="runScript('network_device_manager_enhanced')">Network Manager</button>
+          <button class="btn" onclick="runScript('file_manager_enhanced')">File Manager</button>
+          <button class="btn" onclick="runScript('log_parsing_analysis')">Log Analysis</button>
+        </div>
+      </section>
+
+      <section id="skills">
+        <h2>Technical Skills</h2>
+        <div class="two-column">
+          <div>
+            <h3>Core Knowledge</h3>
+            <ul>
+              <li class="interactive-entry"><strong>Networking:</strong> VLANs, inter-VLAN routing, DHCP, static routing, spanning tree protocol, and access control lists (ACLs) implemented in Cisco Packet Tracer labs.<button class="hint-btn" onclick="openHint('networking')" title="Get a hint!">▶</button></li>
+              <li class="interactive-entry"><strong>Operating Systems:</strong> Linux (AlmaLinux, Ubuntu) and Windows Server administration, including user and group management, permissions, and system services.<button class="hint-btn" onclick="openHint('os')" title="Get a hint!">▶</button></li>
+              <li class="interactive-entry"><strong>Cybersecurity:</strong> Security hardening, SSH configuration, management access controls on network devices, and removal of insecure services like Telnet and SNMP in lab environments.<button class="hint-btn" onclick="openHint('cybersecurity')" title="Get a hint!">▶</button></li>
+              <li class="interactive-entry"><strong>Databases:</strong> PostgreSQL and MariaDB, including table design, SQL queries, and relational data structures for business scenarios.<button class="hint-btn" onclick="openHint('databases')" title="Get a hint!">▶</button></li>
+              <li class="interactive-entry"><strong>Scripting & Automation:</strong> Python programming at a beginner level, plus Bash and PowerShell for administration tasks and simple automation.<button class="hint-btn" onclick="openHint('scripting')" title="Get a hint!">▶</button></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Tools & Platforms</h3>
+            <ul>
+              <li><strong>Network Simulation:</strong> Cisco Packet Tracer for designing and testing network topologies and security configurations.</li>
+              <li><strong>Virtualization:</strong> VMware Workstation for creating and managing multi-VM lab environments.</li>
+              <li><strong>System Administration:</strong> SSH, ping, traceroute, netstat, and related utilities for troubleshooting and diagnostics.</li>
+              <li><strong>Cloud Services:</strong> Introductory experience with AWS through labs.</li>
+              <li><strong>Development & Web:</strong> pgAdmin, Git, Visual Studio Code, and Python http.server for web hosting and tooling.</li>
+            </ul>
+            <div class="taglist">
+              <span>Cybersecurity</span><span>Networking</span><span>Linux</span>
+              <span>Windows</span><span>PostgreSQL</span><span>AWS</span>
+              <span>Python</span><span>Bash</span><span>PowerShell</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience">
+        <h2>Experience</h2>
+
+        <div class="experience-item">
+          <h3>Operations Manager</h3>
+          <p class="experience-meta">Full-service Gas Station · 2–4 years · <span class="experience-status">ACTIVE</span></p>
+          <ul>
+            <li class="interactive-entry"><strong>Operations:</strong> Own and run a full-service gas station with a complete team across management, accounting, customer service, and maintenance.<button class="hint-btn" onclick="openHint('gas-station')" title="Get a hint!">▶</button></li>
+            <li><strong>Team Leadership:</strong> Plan schedules, train staff, coordinate shifts, and keep communication clear so daily operations stay smooth.</li>
+            <li><strong>Suppliers & Inventory:</strong> Manage supplier relationships, monitor stock levels, coordinate deliveries, and control costs while meeting demand.</li>
+            <li><strong>Problem-Solving:</strong> Handle unexpected operational issues and high-pressure situations while keeping the business available to customers.</li>
+            <li><strong>Business Systems:</strong> Use spreadsheets and basic database concepts for scheduling, financial tracking, inventory, and performance metrics.</li>
+          </ul>
+        </div>
+
+        <div class="experience-item">
+          <h3>Cybersecurity & IT Student – Lab Work</h3>
+          <p class="experience-meta">Manitoba Institute of Trades and Technology (MITT) · 2024 – Present <span class="experience-status">CURRENT</span></p>
+          <ul>
+            <li class="interactive-entry"><strong>Networking:</strong> Built VLAN configurations, inter-VLAN routing, spanning tree (STP), EtherChannel, and DHCP servers in Cisco Packet Tracer labs.<button class="hint-btn" onclick="openHint('student-work')" title="Get a hint!">▶</button></li>
+            <li><strong>Systems Administration:</strong> Managed Linux and Windows Server VMs, including accounts, group policies, permissions, and core services.</li>
+            <li><strong>Network Security:</strong> Implemented ACLs to restrict management access, applied port security, and disabled insecure services to harden devices.</li>
+            <li><strong>Database Work:</strong> Designed and managed PostgreSQL databases with proper table structure, relationships, and SQL queries.</li>
+            <li><strong>Learning Mindset:</strong> Use labs and coursework to constantly push skills in cybersecurity and IT operations.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="education">
+        <h2>Education</h2>
+        <h3>Cybersecurity / Information Technology Studies</h3>
+        <p><i>Manitoba Institute of Trades and Technology (MITT) · 2024 – Present</i></p>
+        <ul>
+          <li><strong>Curriculum:</strong> Computer Networking, Cybersecurity Essentials, Cloud Services (AWS), Database Management, and Systems Administration.</li>
+          <li><strong>Lab Focus:</strong> Cisco networking simulations, Linux and Windows servers, security implementations, and database design and management.</li>
+        </ul>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>If you would like to talk about opportunities, internships, or projects, feel free to reach out.</p>
+        <p>
+          Email: <a href="mailto:ibrahim.alkaraki@gmail.com">ibrahim.alkaraki@gmail.com</a><br>
+          Phone: <a href="tel:+1-204-979-7305">+1 204-979-7305</a><br>
+          GitHub: <a href="https://github.com/Ibrahim-Alkaraki" target="_blank">github.com/Ibrahim-Alkaraki</a>
+        </p>
+      </section>
+    </main>
+
+    <!-- Hint Modal -->
+    <div id="hintModal" class="hint-modal">
+      <div class="hint-modal-content">
+        <span class="close-hint" onclick="closeHint()">&times;</span>
+        <h2 class="hint-modal-title" id="hintTitle"></h2>
+        <p class="hint-modal-text" id="hintText"></p>
+        <div class="hint-modal-fun" id="hintFun"></div>
+        <div class="hint-buttons">
+          <button class="hint-btn-close" onclick="closeHint()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closeContactModal()">&times;</span>
+        <h2 class="modal-header" id="contactType">Contact Info</h2>
+        <div id="contactDisplay"></div>
+      </div>
+    </div>
+
+    <!-- Keyboard Shortcuts Modal -->
+    <div id="shortcutsModal" class="shortcuts-modal">
+      <span class="close-shortcuts" onclick="closeShortcuts()">&times;</span>
+      <div class="shortcuts-content">
+        <h2 class="shortcuts-header">Quick Navigation</h2>
+        
+        <div class="shortcut-item">
+          <kbd class="shortcut-key">?</kbd>
+          <span class="shortcut-desc">Show this help modal</span>
+        </div>
+        
+        <div class="shortcut-item">
+          <kbd class="shortcut-key">ESC</kbd>
+          <span class="shortcut-desc">Close any open modal</span>
+        </div>
+        
+        <div class="shortcut-item">
+          <kbd class="shortcut-key">H</kbd>
+          <span class="shortcut-desc">Jump to Home section</span>
+        </div>
+
+        <div class="ascii-decoration">
+════════════════════════════════════════════
+Tips: Click skill entries to unlock hints!
+════════════════════════════════════════════</div>
+
+        <h2 class="shortcuts-header" style="margin-top: 1.5rem; border-top: 2px solid var(--accent); padding-top: 1rem;">Navigation Links</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+          <a href="#home" onclick="closeShortcuts()" style="color: var(--accent-soft); text-decoration: none; padding: 0.5rem; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; text-align: center; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(16,185,129,0.1)'" onmouseout="this.style.background='transparent'">Home</a>
+          <a href="#about" onclick="closeShortcuts()" style="color: var(--accent-soft); text-decoration: none; padding: 0.5rem; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; text-align: center; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(16,185,129,0.1)'" onmouseout="this.style.background='transparent'">About</a>
+          <a href="#skills" onclick="closeShortcuts()" style="color: var(--accent-soft); text-decoration: none; padding: 0.5rem; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; text-align: center; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(16,185,129,0.1)'" onmouseout="this.style.background='transparent'">Skills</a>
+          <a href="#experience" onclick="closeShortcuts()" style="color: var(--accent-soft); text-decoration: none; padding: 0.5rem; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; text-align: center; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(16,185,129,0.1)'" onmouseout="this.style.background='transparent'">Experience</a>
+          <a href="#projects" onclick="closeShortcuts()" style="color: var(--accent-soft); text-decoration: none; padding: 0.5rem; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; text-align: center; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(16,185,129,0.1)'" onmouseout="this.style.background='transparent'">Projects</a>
+          <a href="#education" onclick="closeShortcuts()" style="color: var(--accent-soft); text-decoration: none; padding: 0.5rem; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; text-align: center; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(16,185,129,0.1)'" onmouseout="this.style.background='transparent'">Education</a>
+        </div>
+
+        <div class="ascii-decoration" style="margin-top: 1.5rem;">
+Made with ❤️, curiosity, and lots of coffee</div>
+      </div>
+    </div>
+
+    <!-- Say Hi Modal -->
+    <div id="sayHiModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closeSayHi()">&times;</span>
+        <h2 class="modal-header">Say Hi</h2>
+        <div class="page-box-content">
+          <p>Thanks for visiting my resume! 👋</p>
+          <p>I'm Ibrahim, a cybersecurity student and operations manager passionate about building secure systems and leading great teams. Whether it's networking, cloud services, or business operations, I'm always learning and growing.</p>
+          <p>Feel free to reach out if you'd like to chat about tech, opportunities, or just say hello. I'd love to connect!</p>
+          <p style="margin-top: 1.5rem;">
+            <strong>Get in touch:</strong>
+            <a href="javascript:void(0)" onclick="closeContactModal(); openContactModal('email')" style="color: var(--accent-soft); text-decoration: underline; cursor: pointer;">Email</a> • 
+            <a href="javascript:void(0)" onclick="closeContactModal(); openContactModal('phone')" style="color: var(--accent-soft); text-decoration: underline; cursor: pointer;">Phone</a> • 
+            <a href="javascript:void(0)" onclick="closeContactModal(); openContactModal('github')" style="color: var(--accent-soft); text-decoration: underline; cursor: pointer;">GitHub</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Learning Journey Modal -->
+    <div id="learningModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closeLearningJourney()">&times;</span>
+        <h2 class="modal-header">Learning Journey</h2>
+        <div class="page-box-content">
+          <p>My path in tech has been one of constant discovery and growth. Here's my learning journey:</p>
+          
+          <div class="learning-timeline">
+            <div class="timeline-item">
+              <div class="timeline-label">2024 - Present</div>
+              <div class="timeline-title">Cybersecurity & IT Student at MITT</div>
+              <div class="timeline-desc">Deep dive into networking, Linux/Windows systems, databases, and cloud services. Building practical skills through intensive labs and real-world scenarios.</div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-label">Ongoing</div>
+              <div class="timeline-title">Operations Manager</div>
+              <div class="timeline-desc">Running a gas station business taught me real-world problem-solving, team leadership, and operational excellence—skills that directly apply to IT and security management.</div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-label">Core Skills</div>
+              <div class="timeline-title">Technical Foundation</div>
+              <div class="timeline-desc">Networking (VLANs, routing, ACLs), System Administration (Linux, Windows), Cybersecurity hardening, Database design (PostgreSQL), and Python scripting.</div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-label">Future Goals</div>
+              <div class="timeline-title">Expand Technical Expertise</div>
+              <div class="timeline-desc">Continue building hands-on experience across networking devices, security implementations, and cloud infrastructure. Pursuing deeper knowledge in enterprise network design and security hardening.</div>
+            </div>
+          </div>
+
+          <p style="margin-top: 1.5rem; color: var(--text-muted); font-style: italic;">Want to see my projects and contributions? Check out my <a href="https://github.com/Ibrahim-Alkaraki" target="_blank" style="color: var(--accent); text-decoration: underline;">GitHub</a>!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terminal Modal for Script Execution -->
+    <div id="scriptModal" class="modal">
+      <div class="modal-content" style="max-height: 75vh; display: flex; flex-direction: column;">
+        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <span id="scriptTitle">Script Output</span>
+          <span class="close-modal" onclick="closeScriptModal()" style="cursor: pointer; font-size: 1.5rem;">&times;</span>
+        </div>
+        <div id="scriptOutput" style="flex: 1; overflow-y: auto; background: #050810; border: 1px solid var(--border-subtle); padding: 1rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.9rem; color: var(--accent-soft); margin-bottom: 1rem; line-height: 1.4; min-height: 300px;"></div>
+        <div style="display: flex; gap: 0.5rem;">
+          <input type="text" id="scriptInput" class="modal-input" placeholder="Enter input and press Enter..." style="flex: 1;" onkeypress="handleInputKeypress(event);" disabled />
+          <button class="copy-btn" id="sendBtn" onclick="sendScriptInput()" style="margin: 0;" disabled>Send</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="scripts.js"></script>
+    <script>
+      // Browser-based script runner — no backend server needed
+      let activeTerm = null;
+
+      function handleInputKeypress(event) {
+        if (event.key === 'Enter' && activeTerm && activeTerm._resolve) {
+          event.preventDefault();
+          sendScriptInput();
+        }
+      }
+
+      function runScript(scriptName) {
+        const scriptFn = SCRIPT_REGISTRY[scriptName];
+        if (!scriptFn) return;
+
+        const displayName = scriptName.replace(/_/g, ' ').toUpperCase();
+        document.getElementById('scriptTitle').textContent = '▶ ' + displayName;
+        document.getElementById('scriptOutput').innerHTML = '';
+        document.getElementById('scriptModal').style.display = 'block';
+        document.getElementById('scriptInput').value = '';
+        document.getElementById('scriptInput').disabled = true;
+        document.getElementById('sendBtn').disabled = true;
+
+        const outputEl = document.getElementById('scriptOutput');
+        const inputEl = document.getElementById('scriptInput');
+        const sendBtn = document.getElementById('sendBtn');
+        activeTerm = new VirtualTerminal(outputEl, inputEl, sendBtn);
+
+        scriptFn(activeTerm).then(() => {
+          activeTerm.finish();
+          activeTerm = null;
+        });
+      }
+
+      function sendScriptInput() {
+        if (!activeTerm || !activeTerm._resolve) return;
+        const inputEl = document.getElementById('scriptInput');
+        const value = inputEl.value;
+        inputEl.value = '';
+        activeTerm.submit(value);
+      }
+
+      function closeScriptModal() {
+        document.getElementById('scriptModal').style.display = 'none';
+        activeTerm = null;
+      }
+
+      window.onclick = function(event) {
+        const modal = document.getElementById('scriptModal');
+        if (event.target === modal) {
+          closeScriptModal();
+        }
+      }
+    </script>
+
+    <!-- Floating Help Button -->
+    <div class="floating-help" onclick="openShortcuts()" title="Press ? or click for help">?</div>
+
+    <footer>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>&copy; 2026 Ibrahim Alkaraki &mdash; Made with <span>&#10084;</span>, Python, and HTML/CSS</div>
+        <div id="statsBar" class="stats-bar"></div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+
