@@ -6,1193 +6,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <title>Ibrahim Alkaraki | Cybersecurity Student & Operations Manager</title>
-    <style>
-      :root {
-        --bg-main: #050810;
-        --bg-panel: #0c111b;
-        --bg-panel-alt: #0f172a;
-        --accent: #10b981;
-        --accent-soft: #22c55e;
-        --accent-warn: #f97316;
-        --text-main: #e5e7eb;
-        --text-muted: #9ca3af;
-        --border-subtle: #1f2937;
-        --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        --font-mono: "Fira Code", "Cascadia Code", "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-        padding: 0;
-        background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
-        background-attachment: fixed;
-        color: var(--text-main);
-        font-family: var(--font-sans);
-        position: relative;
-        overflow-x: hidden;
-      }
-
-      /* Subtle animated background grid */
-      body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: 
-          repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(16, 185, 129, 0.02) 49px, rgba(16, 185, 129, 0.02) 50px),
-          repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(16, 185, 129, 0.02) 49px, rgba(16, 185, 129, 0.02) 50px);
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      /* Network node background animation */
-      body::after {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 80%, rgba(34, 197, 94, 0.05) 0%, transparent 50%);
-        pointer-events: none;
-        z-index: 1;
-        animation: float 20s ease-in-out infinite;
-      }
-
-      @keyframes float {
-        0%, 100% { transform: translate(0, 0); }
-        50% { transform: translate(10px, -10px); }
-      }
-
-      header {
-        background: linear-gradient(120deg, #020617, #111827);
-        border-bottom: 1px solid var(--border-subtle);
-        padding: 1.5rem 1rem 1.1rem 1rem;
-        text-align: center;
-        position: sticky;
-        top: 0;
-        z-index: 25;
-        position: relative;
-      }
-
-      /* Animated header scan line effect */
-      header::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
-        animation: scan 3s ease-in-out infinite;
-      }
-
-      @keyframes scan {
-        0%, 100% { opacity: 0.5; }
-        50% { opacity: 1; }
-      }
-
-      header h1 {
-        margin: 0;
-        font-family: var(--font-mono);
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        position: relative;
-        z-index: 2;
-        animation: typewriter 1.5s steps(20, end) 0.5s 1 ease-out forwards;
-        opacity: 0;
-      }
-
-      @keyframes typewriter {
-        from {
-          opacity: 0;
-          transform: translateY(-10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      header h1::after {
-        content: "";
-        position: absolute;
-        right: -8px;
-        top: 0;
-        height: 100%;
-        width: 2px;
-        background: var(--accent);
-        animation: blink 1s ease-in-out infinite;
-      }
-
-      @keyframes blink {
-        0%, 49%, 100% { opacity: 1; }
-        50%, 99% { opacity: 0; }
-      }
-
-      header h1::before {
-        content: "$ ";
-        color: var(--accent);
-      }
-
-      header p {
-        margin: 0.35rem 0 0;
-        font-size: 0.95rem;
-        color: var(--text-muted);
-      }
-
-      header p span {
-        font-weight: 600;
-        letter-spacing: 0.05em;
-      }
-
-      nav {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1.2rem;
-        background: #020617;
-        border-bottom: 1px solid var(--border-subtle);
-        padding: 0.45rem 1rem;
-        font-family: var(--font-mono);
-        font-size: 0.83rem;
-      }
-
-      nav a {
-        color: var(--text-muted);
-        text-decoration: none;
-        position: relative;
-        padding-bottom: 0.15rem;
-      }
-
-      nav a::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 0;
-        height: 2px;
-        background: var(--accent);
-        transition: width 0.2s ease-out;
-      }
-
-      nav a:hover {
-        color: var(--accent);
-      }
-
-      nav a:hover::after {
-        width: 100%;
-      }
-
-      main {
-        max-width: 980px;
-        margin: 2rem auto 4.5rem auto;
-        padding: 0 1rem 3rem 1rem;
-      }
-
-      section {
-        margin-bottom: 2.5rem;
-        background: linear-gradient(135deg, var(--bg-panel) 0%, var(--bg-panel-alt) 100%);
-        border-radius: 10px;
-        border: 1px solid var(--border-subtle);
-        padding: 1.5rem 1.75rem;
-        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
-        position: relative;
-        transition: all 0.3s ease;
-        overflow: hidden;
-      }
-
-      /* Animated left border accent */
-      section::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 3px;
-        height: 100%;
-        background: linear-gradient(180deg, var(--accent), var(--accent-soft), transparent);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-
-      section:hover {
-        border-color: var(--accent);
-        box-shadow: 0 24px 60px rgba(16, 185, 129, 0.15), 0 0 30px rgba(16, 185, 129, 0.1);
-      }
-
-      section:hover::before {
-        opacity: 1;
-      }
-
-      section h2 {
-        margin-top: 0;
-        margin-bottom: 0.8rem;
-        font-family: var(--font-mono);
-        font-size: 1.1rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--accent-soft);
-        position: relative;
-        z-index: 2;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      section h2::before {
-        content: "// ";
-        color: var(--accent-warn);
-      }
-
-      /* Status indicator dot */
-      section h2::after {
-        content: "";
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        background: var(--accent);
-        border-radius: 50%;
-        margin-left: auto;
-        animation: pulse 2s ease-in-out infinite;
-      }
-
-      @keyframes pulse {
-        0%, 100% { 
-          opacity: 1;
-          box-shadow: 0 0 0 0 var(--accent);
-        }
-        50% {
-          opacity: 0.8;
-        }
-        100% {
-          box-shadow: 0 0 0 5px rgba(16, 185, 129, 0);
-        }
-      }
-
-      .intro {
-        text-align: left;
-      }
-
-      .intro p {
-        margin-top: 0.5rem;
-        color: var(--text-muted);
-      }
-
-      .contact-links a {
-        display: inline-block;
-        margin-right: 0.75rem;
-        margin-top: 0.5rem;
-        color: var(--accent);
-        text-decoration: none;
-        font-family: var(--font-mono);
-        font-size: 0.85rem;
-      }
-
-      .contact-links a:hover {
-        text-decoration: underline;
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        margin: 1rem 0.6rem 0 0;
-        padding: 0.55rem 1.3rem;
-        background: #111827;
-        color: var(--text-main);
-        border-radius: 6px;
-        border: 1px solid var(--border-subtle);
-        font-size: 0.85rem;
-        font-family: var(--font-mono);
-        cursor: pointer;
-        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5);
-        transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .btn::before {
-        content: "▶";
-        font-size: 0.7rem;
-        color: var(--accent);
-        transition: all 0.2s ease;
-      }
-
-      /* Glowing border effect on hover */
-      .btn::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-        border-radius: 6px;
-      }
-
-      .btn:hover {
-        border-color: var(--accent);
-        background: linear-gradient(135deg, #111827, #1a2a3a);
-        transform: translateY(-2px);
-        box-shadow: 0 0 20px rgba(16, 185, 129, 0.4), 0 12px 28px rgba(0, 0, 0, 0.65);
-      }
-
-      .btn:hover::before {
-        color: var(--accent-soft);
-        transform: rotateZ(-5deg);
-      }
-
-      .btn:active {
-        transform: translateY(0);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      }
-
-      p {
-        line-height: 1.6;
-        margin-top: 0.4rem;
-        color: var(--text-main);
-      }
-
-      ul {
-        padding-left: 1.2rem;
-      }
-
-      li {
-        margin-bottom: 0.45rem;
-        color: var(--text-muted);
-      }
-
-      li strong {
-        color: var(--accent-soft);
-        font-weight: 500;
-      }
-
-      .two-column {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 1.5rem;
-      }
-
-      .taglist span {
-        display: inline-block;
-        background: rgba(16, 185, 129, 0.08);
-        border: 1px solid rgba(16, 185, 129, 0.45);
-        color: var(--accent-soft);
-        padding: 0.23rem 0.6rem;
-        border-radius: 999px;
-        font-size: 0.78rem;
-        margin: 0.22rem 0.22rem 0 0;
-        font-family: var(--font-mono);
-      }
-
-      .taglist span::before {
-        content: "#";
-        margin-right: 0.15rem;
-        color: var(--accent-warn);
-      }
-
-      h3 {
-        margin-top: 0.2rem;
-        font-size: 1rem;
-        font-weight: 500;
-        font-family: var(--font-mono);
-        color: #e5e7eb;
-      }
-
-      footer {
-        text-align: center;
-        color: var(--text-muted);
-        background: #020617;
-        border-top: 1px solid var(--border-subtle);
-        padding: 0.7rem 0 0.5rem 0;
-        position: fixed;
-        width: 100%;
-        bottom: 0;
-        font-size: 0.8rem;
-        font-family: var(--font-mono);
-      }
-
-      footer span {
-        color: var(--accent-warn);
-      }
-
-      /* Modal Styles */
-      .modal {
-        display: none !important;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        animation: fadeIn 0.2s ease-out;
-      }
-
-      .modal[style*="display: block"] {
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
-      }
-
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-
-      .modal-content {
-        background: linear-gradient(135deg, var(--bg-panel) 0%, var(--bg-panel-alt) 100%);
-        border: 1px solid var(--border-subtle);
-        padding: 2rem;
-        border-radius: 10px;
-        width: 90%;
-        max-width: 500px;
-        max-height: 80vh;
-        overflow-y: auto;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-        animation: slideDown 0.3s ease-out;
-      }
-
-      @keyframes slideDown {
-        from {
-          transform: translateY(-50px);
-          opacity: 0;
-        }
-        to {
-          transform: translateY(0);
-          opacity: 1;
-        }
-      }
-
-      .modal-header {
-        font-family: var(--font-mono);
-        font-size: 1.1rem;
-        color: var(--accent-soft);
-        margin-bottom: 1rem;
-        margin-top: 0;
-      }
-
-      .modal-header::before {
-        content: "$ ";
-        color: var(--accent);
-      }
-
-      .close-modal {
-        color: var(--text-muted);
-        float: right;
-        font-size: 1.5rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: color 0.2s;
-      }
-
-      .close-modal:hover {
-        color: var(--accent);
-      }
-
-      .contact-item {
-        background: #020617;
-        border: 1px solid var(--border-subtle);
-        padding: 1rem;
-        border-radius: 6px;
-        margin-bottom: 0.8rem;
-        font-family: var(--font-mono);
-      }
-
-      .contact-label {
-        color: var(--accent-warn);
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        margin-bottom: 0.3rem;
-      }
-
-      .contact-value {
-        color: var(--accent-soft);
-        word-break: break-all;
-        font-size: 0.95rem;
-        margin: 0.5rem 0;
-      }
-
-      .copy-btn {
-        display: inline-block;
-        background: var(--accent);
-        color: #050810;
-        border: none;
-        padding: 0.4rem 0.8rem;
-        border-radius: 4px;
-        cursor: pointer;
-        font-family: var(--font-mono);
-        font-size: 0.8rem;
-        transition: all 0.2s;
-        margin-top: 0.5rem;
-      }
-
-      .copy-btn:hover {
-        background: var(--accent-soft);
-        transform: translateY(-1px);
-      }
-
-      .copy-btn.copied {
-        background: #059669;
-      }
-
-      .copy-feedback {
-        color: var(--accent-soft);
-        font-size: 0.8rem;
-        margin-top: 0.3rem;
-        opacity: 0;
-        transition: opacity 0.3s;
-      }
-
-      .copy-feedback.show {
-        opacity: 1;
-      }
-
-      /* Quote/Fun message */
-      .fun-quote {
-        background: rgba(16, 185, 129, 0.05);
-        border-left: 2px solid var(--accent);
-        padding: 0.8rem;
-        border-radius: 4px;
-        margin-top: 1rem;
-        color: var(--text-muted);
-        font-size: 0.9rem;
-        font-style: italic;
-      }
-
-      /* Interactive Entry Styles */
-      .interactive-entry {
-        position: relative;
-        padding-right: 2rem;
-        transition: all 0.2s ease;
-      }
-
-      .interactive-entry:hover {
-        padding-left: 0.5rem;
-        color: var(--accent-soft);
-      }
-
-      .hint-btn {
-        position: absolute;
-        right: 0;
-        top: 0;
-        background: none;
-        border: none;
-        color: var(--accent);
-        font-size: 1rem;
-        cursor: pointer;
-        padding: 0.2rem 0.4rem;
-        opacity: 0;
-        transition: all 0.2s;
-        font-family: var(--font-mono);
-        text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
-      }
-
-      .interactive-entry:hover .hint-btn {
-        opacity: 1;
-        transform: scale(1.3) translateX(-0.3rem);
-      }
-
-      .hint-btn:hover {
-        color: var(--accent-soft);
-        transform: scale(1.4) rotate(90deg) translateX(-0.3rem);
-        transition: all 0.3s;
-        text-shadow: 0 0 20px rgba(34, 197, 94, 0.8);
-      }
-
-      .hint-modal {
-        display: none;
-        position: fixed;
-        z-index: 1001;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
-        animation: fadeIn 0.2s ease-out;
-      }
-
-      .hint-modal-content {
-        background: linear-gradient(135deg, var(--bg-panel) 0%, var(--bg-panel-alt) 100%);
-        border: 2px solid var(--accent);
-        margin: 20% auto;
-        padding: 2rem;
-        border-radius: 10px;
-        width: 90%;
-        max-width: 600px;
-        box-shadow: 0 0 40px rgba(16, 185, 129, 0.3);
-        animation: slideDown 0.3s ease-out;
-      }
-
-      .hint-modal-title {
-        font-family: var(--font-mono);
-        font-size: 1.2rem;
-        color: var(--accent-soft);
-        margin: 0 0 1rem 0;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .hint-modal-title::before {
-        content: "»";
-        font-size: 1.5rem;
-      }
-
-      .hint-modal-text {
-        color: var(--text-main);
-        line-height: 1.7;
-        margin-bottom: 1.5rem;
-        font-size: 0.95rem;
-      }
-
-      .hint-modal-fun {
-        background: rgba(16, 185, 129, 0.1);
-        border-left: 3px solid var(--accent-warn);
-        padding: 0.8rem;
-        border-radius: 4px;
-        margin-bottom: 1rem;
-        color: var(--accent-warn);
-        font-size: 0.85rem;
-        font-style: italic;
-      }
-
-      .close-hint {
-        color: var(--text-muted);
-        float: right;
-        font-size: 1.5rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: color 0.2s;
-      }
-
-      .close-hint:hover {
-        color: var(--accent);
-      }
-
-      .hint-buttons {
-        display: flex;
-        gap: 0.8rem;
-        justify-content: flex-end;
-      }
-
-      .hint-btn-close {
-        background: #111827;
-        color: var(--text-main);
-        border: 1px solid var(--border-subtle);
-        padding: 0.5rem 1.2rem;
-        border-radius: 6px;
-        cursor: pointer;
-        font-family: var(--font-mono);
-        font-size: 0.85rem;
-        transition: all 0.2s;
-      }
-
-      .hint-btn-close:hover {
-        border-color: var(--accent);
-        background: var(--accent);
-        color: #050810;
-      }
-
-      .unlocked-badge {
-        display: inline-block;
-        background: rgba(34, 197, 94, 0.2);
-        border: 1px solid var(--accent-soft);
-        color: var(--accent-soft);
-        padding: 0.2rem 0.6rem;
-        border-radius: 999px;
-        font-size: 0.7rem;
-        margin-left: 0.5rem;
-        font-family: var(--font-mono);
-        animation: bounce 0.6s ease-out;
-      }
-
-      @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-5px); }
-      }
-
-      .stats-bar {
-        background: #0a0e1a;
-        border: 1px solid var(--border-subtle);
-        border-radius: 6px;
-        padding: 0.8rem 1rem;
-        margin-top: 1rem;
-        font-family: var(--font-mono);
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 1rem;
-      }
-
-      .stats-bar span {
-        color: var(--accent-soft);
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-      }
-
-      .status-indicator {
-        display: inline-block;
-        width: 6px;
-        height: 6px;
-        background: var(--accent);
-        border-radius: 50%;
-        animation: pulse 2s ease-in-out infinite;
-      }
-
-      /* Daily Tip */
-      .daily-tip {
-        background: rgba(16, 185, 129, 0.08);
-        border: 1px solid rgba(16, 185, 129, 0.25);
-        border-radius: 6px;
-        padding: 0.8rem 1rem;
-        margin-top: 1rem;
-        color: var(--accent-soft);
-        font-family: var(--font-mono);
-        font-size: 0.85rem;
-        line-height: 1.5;
-        position: relative;
-      }
-
-      .daily-tip::before {
-        content: "Tip #";
-        color: var(--accent-warn);
-        font-weight: bold;
-        margin-right: 0.3rem;
-      }
-
-      .daily-tip-content {
-        display: inline;
-      }
-
-      .daily-tip-date {
-        font-size: 0.7rem;
-        color: var(--text-muted);
-        display: block;
-        margin-top: 0.4rem;
-        opacity: 0.8;
-      }
-
-      /* Proficiency bars for skills */
-      .skill-proficiency {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 0.3rem;
-        margin-left: 1rem;
-        font-size: 0.75rem;
-      }
-
-      .proficiency-bar {
-        flex: 1;
-        height: 5px;
-        background: rgba(16, 185, 129, 0.2);
-        border-radius: 999px;
-        overflow: hidden;
-        max-width: 150px;
-      }
-
-      .proficiency-fill {
-        height: 100%;
-        background: linear-gradient(90deg, var(--accent), var(--accent-soft));
-        border-radius: 999px;
-        transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-
-      .proficiency-label {
-        color: var(--accent-soft);
-        font-weight: 500;
-      }
-
-      /* Experience timeline */
-      .experience-item {
-        padding-left: 1.5rem;
-        position: relative;
-        margin-bottom: 1.5rem;
-      }
-
-      .experience-item::before {
-        content: "";
-        position: absolute;
-        left: -0.25rem;
-        top: 0.35rem;
-        width: 10px;
-        height: 10px;
-        background: var(--accent);
-        border-radius: 50%;
-        box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
-        transition: all 0.3s ease;
-      }
-
-      .experience-item::after {
-        content: "";
-        position: absolute;
-        left: 2px;
-        top: 20px;
-        width: 2px;
-        height: calc(100% + 1.5rem);
-        background: linear-gradient(180deg, var(--accent), transparent);
-        opacity: 0.3;
-      }
-
-      .experience-item:last-child::after {
-        display: none;
-      }
-
-      .experience-item:hover::before {
-        transform: scale(1.5);
-        box-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
-      }
-
-      .experience-item p {
-        margin: 0.3rem 0;
-      }
-
-      .experience-meta {
-        color: var(--text-muted);
-        font-size: 0.85rem;
-        font-style: italic;
-      }
-
-      .experience-status {
-        display: inline-block;
-        font-size: 0.7rem;
-        padding: 0.2rem 0.5rem;
-        background: rgba(34, 197, 94, 0.15);
-        border: 1px solid rgba(34, 197, 94, 0.3);
-        color: var(--accent-soft);
-        border-radius: 999px;
-        margin-left: 0.5rem;
-        font-family: var(--font-mono);
-      }
-
-      /* Keyboard shortcuts modal */
-      .shortcuts-modal {
-        display: none;
-        position: fixed;
-        z-index: 1002;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.85);
-        animation: fadeIn 0.2s ease-out;
-      }
-
-      .shortcuts-content {
-        background: linear-gradient(135deg, var(--bg-panel) 0%, var(--bg-panel-alt) 100%);
-        border: 2px solid var(--accent);
-        margin: 10% auto;
-        padding: 2rem;
-        border-radius: 10px;
-        width: 90%;
-        max-width: 700px;
-        max-height: 80vh;
-        overflow-y: auto;
-        box-shadow: 0 0 60px rgba(16, 185, 129, 0.4);
-        animation: slideDown 0.3s ease-out;
-      }
-
-      .shortcuts-header {
-        font-family: var(--font-mono);
-        font-size: 1.4rem;
-        color: var(--accent-soft);
-        margin: 0 0 1.5rem 0;
-        border-bottom: 2px solid var(--accent);
-        padding-bottom: 0.8rem;
-      }
-
-      .shortcuts-header::before {
-        content: "";
-        margin-right: 0.5rem;
-      }
-
-      .shortcut-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.8rem 0;
-        border-bottom: 1px solid rgba(16, 185, 129, 0.1);
-        margin-bottom: 0.5rem;
-      }
-
-      .shortcut-item:last-child {
-        border-bottom: none;
-      }
-
-      .shortcut-key {
-        background: #111827;
-        border: 1px solid var(--border-subtle);
-        padding: 0.3rem 0.8rem;
-        border-radius: 4px;
-        font-family: var(--font-mono);
-        color: var(--accent);
-        font-weight: bold;
-        font-size: 0.85rem;
-      }
-
-      .shortcut-desc {
-        color: var(--text-muted);
-        font-size: 0.9rem;
-        flex: 1;
-        margin-left: 1rem;
-      }
-
-      .close-shortcuts {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        color: var(--text-muted);
-        font-size: 1.5rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: color 0.2s;
-      }
-
-      .close-shortcuts:hover {
-        color: var(--accent);
-      }
-
-      /* ASCII art border */
-      .ascii-decoration {
-        color: rgba(16, 185, 129, 0.3);
-        font-family: var(--font-mono);
-        font-size: 0.8rem;
-        text-align: center;
-        margin: 1rem 0;
-        white-space: pre;
-      }
-
-      /* Floating Help Button */
-      .floating-help {
-        position: fixed;
-        top: 2rem;
-        right: 2rem;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-        border: 2px solid var(--accent-soft);
-        color: #050810;
-        font-size: 1.5rem;
-        font-weight: bold;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 50;
-        box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
-        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        font-family: var(--font-mono);
-      }
-
-      .floating-help:hover {
-        transform: scale(1.15) rotate(15deg);
-        box-shadow: 0 12px 36px rgba(16, 185, 129, 0.6);
-      }
-
-      .floating-help:active {
-        transform: scale(1.05);
-      }
-
-      /* Page Box Styles */
-      .page-box {
-        background: linear-gradient(135deg, var(--bg-panel) 0%, var(--bg-panel-alt) 100%);
-        border: 2px solid var(--accent);
-        border-radius: 10px;
-        padding: 2rem;
-        margin: 1.5rem 0;
-        box-shadow: 0 0 40px rgba(16, 185, 129, 0.2);
-        animation: fadeInUp 0.6s ease-out;
-      }
-
-      .page-box-title {
-        font-family: var(--font-mono);
-        font-size: 1.3rem;
-        color: var(--accent-soft);
-        margin: 0 0 1rem 0;
-        display: flex;
-        align-items: center;
-        gap: 0.7rem;
-      }
-
-      .page-box-title::before {
-        content: "$ ";
-        color: var(--accent);
-      }
-
-      .page-box-content {
-        color: var(--text-main);
-        line-height: 1.7;
-        font-size: 0.95rem;
-      }
-
-      .page-box-content p {
-        margin: 0.5rem 0;
-      }
-
-      .learning-timeline {
-        margin-top: 1.5rem;
-      }
-
-      .timeline-item {
-        padding-left: 2rem;
-        position: relative;
-        margin-bottom: 1.2rem;
-        opacity: 0;
-        animation: fadeInUp 0.6s ease-out forwards;
-      }
-
-      .timeline-item:nth-child(1) { animation-delay: 0.1s; }
-      .timeline-item:nth-child(2) { animation-delay: 0.2s; }
-      .timeline-item:nth-child(3) { animation-delay: 0.3s; }
-      .timeline-item:nth-child(4) { animation-delay: 0.4s; }
-      .timeline-item:nth-child(5) { animation-delay: 0.5s; }
-
-      .timeline-item::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0.35rem;
-        width: 12px;
-        height: 12px;
-        background: var(--accent);
-        border-radius: 50%;
-        box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
-        transition: all 0.3s ease;
-      }
-
-      .timeline-item::after {
-        content: "";
-        position: absolute;
-        left: 4.5px;
-        top: 20px;
-        width: 2px;
-        height: calc(100% + 1.2rem);
-        background: linear-gradient(180deg, var(--accent), transparent);
-        opacity: 0.4;
-      }
-
-      .timeline-item:last-child::after {
-        display: none;
-      }
-
-      .timeline-item:hover::before {
-        transform: scale(1.5);
-        box-shadow: 0 0 20px rgba(34, 197, 94, 0.8);
-      }
-
-      .timeline-label {
-        font-family: var(--font-mono);
-        font-size: 0.85rem;
-        color: var(--accent-warn);
-        text-transform: uppercase;
-        margin-bottom: 0.2rem;
-      }
-
-      .timeline-title {
-        font-weight: 600;
-        color: var(--accent-soft);
-        margin-bottom: 0.3rem;
-      }
-
-      .timeline-desc {
-        color: var(--text-muted);
-        font-size: 0.9rem;
-      }
-
-      @media (max-width: 768px) {
-        .floating-help {
-          width: 45px;
-          height: 45px;
-          font-size: 1.3rem;
-          top: 1.5rem;
-          right: 1.5rem;
-        }
-
-        .page-box {
-          padding: 1.5rem;
-          margin: 1rem 0;
-        }
-
-        .page-box-title {
-          font-size: 1.1rem;
-        }
-      }
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      section {
-        animation: fadeInUp 0.6s ease-out backwards;
-      }
-
-      section:nth-child(1) { animation-delay: 0.1s; }
-      section:nth-child(2) { animation-delay: 0.2s; }
-      section:nth-child(3) { animation-delay: 0.3s; }
-      section:nth-child(4) { animation-delay: 0.4s; }
-      section:nth-child(5) { animation-delay: 0.5s; }
-      section:nth-child(6) { animation-delay: 0.6s; }
-      section:nth-child(7) { animation-delay: 0.7s; }
-
-      /* Enhanced taglist with hover effects */
-      .taglist span {
-        display: inline-block;
-        background: rgba(16, 185, 129, 0.08);
-        border: 1px solid rgba(16, 185, 129, 0.45);
-        color: var(--accent-soft);
-        padding: 0.23rem 0.6rem;
-        border-radius: 999px;
-        font-size: 0.78rem;
-        margin: 0.22rem 0.22rem 0 0;
-        font-family: var(--font-mono);
-        transition: all 0.3s ease;
-        cursor: default;
-      }
-
-      .taglist span:hover {
-        background: rgba(16, 185, 129, 0.2);
-        border-color: var(--accent-soft);
-        transform: translateY(-3px);
-        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
-      }
-
-      @media (max-width: 768px) {
-        section {
-          padding: 1.2rem 1.1rem;
-        }
-
-        header {
-          padding: 1.1rem 0.7rem 0.9rem 0.7rem;
-        }
-
-        main {
-          margin-top: 1.5rem;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="style.css">
     <script>
       const quotes = [
         "\"The only way to do great work is to love what you do.\" - Steve Jobs",
@@ -1361,29 +175,7 @@
         }
       }
 
-      // Close modal when clicking outside
-      window.onclick = function(event) {
-        const contactModal = document.getElementById('contactModal');
-        const hintModal = document.getElementById('hintModal');
-        const shortcutsModal = document.getElementById('shortcutsModal');
-        const sayHiModal = document.getElementById('sayHiModal');
-        const learningModal = document.getElementById('learningModal');
-        if (event.target === contactModal) {
-          contactModal.style.display = 'none';
-        }
-        if (event.target === hintModal) {
-          hintModal.style.display = 'none';
-        }
-        if (event.target === shortcutsModal) {
-          shortcutsModal.style.display = 'none';
-        }
-        if (event.target === sayHiModal) {
-          sayHiModal.style.display = 'none';
-        }
-        if (event.target === learningModal) {
-          learningModal.style.display = 'none';
-        }
-      }
+      // Close modal when clicking outside - handled in second script block
 
       // Hint System
       let unlockedHints = [];
@@ -1526,11 +318,11 @@
     </script>
 
   </head>
-  <body>
+  <body class="resume-page">
     <header id="home">
       <h1>Ibrahim Alkaraki</h1>
       <p>
-        <span style="font-family: var(--font-mono); color:#22c55e;">Role:</span>
+        <span class="role-label">Role:</span>
         Cybersecurity Student &amp; Operations Manager
       </p>
     </header>
@@ -1568,16 +360,16 @@
           I also manage a gas station business, leading a team, handling supplier relationships, tracking inventory, and keeping operations running under pressure. This experience sharpened my responsibility, problem-solving, time management, and communication skills—directly useful in technical and security roles.
         </p>
         <div class="contact-links">
-          <a href="javascript:void(0)" onclick="openContactModal('email')" style="cursor: pointer;">Email</a>
-          <a href="javascript:void(0)" onclick="openContactModal('phone')" style="cursor: pointer;">Phone</a>
-          <a href="javascript:void(0)" onclick="openContactModal('github')" style="cursor: pointer;">GitHub</a>
+          <a href="javascript:void(0)" onclick="openContactModal('email')">Email</a>
+          <a href="javascript:void(0)" onclick="openContactModal('phone')">Phone</a>
+          <a href="javascript:void(0)" onclick="openContactModal('github')">GitHub</a>
         </div>
       </section>
 
       <section id="projects">
         <h2>Interactive Demonstrations</h2>
         <p>Click any button below to run an interactive Python application directly in your browser:</p>
-        <div style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 1rem;">
+        <div class="btn-grid">
           <button class="btn" onclick="runScript('password_manager_enhanced')">Password Manager</button>
           <button class="btn" onclick="runScript('network_device_manager_enhanced')">Network Manager</button>
           <button class="btn" onclick="runScript('file_manager_enhanced')">File Manager</button>
@@ -1591,11 +383,11 @@
           <div>
             <h3>Core Knowledge</h3>
             <ul>
-              <li class="interactive-entry"><strong>Networking:</strong> VLANs, inter-VLAN routing, DHCP, static routing, spanning tree protocol, and access control lists (ACLs) implemented in Cisco Packet Tracer labs.<button class="hint-btn" onclick="openHint('networking')" title="Get a hint!">▶</button></li>
-              <li class="interactive-entry"><strong>Operating Systems:</strong> Linux (AlmaLinux, Ubuntu) and Windows Server administration, including user and group management, permissions, and system services.<button class="hint-btn" onclick="openHint('os')" title="Get a hint!">▶</button></li>
-              <li class="interactive-entry"><strong>Cybersecurity:</strong> Security hardening, SSH configuration, management access controls on network devices, and removal of insecure services like Telnet and SNMP in lab environments.<button class="hint-btn" onclick="openHint('cybersecurity')" title="Get a hint!">▶</button></li>
-              <li class="interactive-entry"><strong>Databases:</strong> PostgreSQL and MariaDB, including table design, SQL queries, and relational data structures for business scenarios.<button class="hint-btn" onclick="openHint('databases')" title="Get a hint!">▶</button></li>
-              <li class="interactive-entry"><strong>Scripting & Automation:</strong> Python programming at a beginner level, plus Bash and PowerShell for administration tasks and simple automation.<button class="hint-btn" onclick="openHint('scripting')" title="Get a hint!">▶</button></li>
+              <li class="interactive-entry" onclick="openHint('networking')"><strong>Networking:</strong> VLANs, inter-VLAN routing, DHCP, static routing, spanning tree protocol, and access control lists (ACLs) implemented in Cisco Packet Tracer labs.<button class="hint-btn" title="Get a hint!">▶</button></li>
+              <li class="interactive-entry" onclick="openHint('os')"><strong>Operating Systems:</strong> Linux (AlmaLinux, Ubuntu) and Windows Server administration, including user and group management, permissions, and system services.<button class="hint-btn" title="Get a hint!">▶</button></li>
+              <li class="interactive-entry" onclick="openHint('cybersecurity')"><strong>Cybersecurity:</strong> Security hardening, SSH configuration, management access controls on network devices, and removal of insecure services like Telnet and SNMP in lab environments.<button class="hint-btn" title="Get a hint!">▶</button></li>
+              <li class="interactive-entry" onclick="openHint('databases')"><strong>Databases:</strong> PostgreSQL and MariaDB, including table design, SQL queries, and relational data structures for business scenarios.<button class="hint-btn" title="Get a hint!">▶</button></li>
+              <li class="interactive-entry" onclick="openHint('scripting')"><strong>Scripting & Automation:</strong> Python programming at a beginner level, plus Bash and PowerShell for administration tasks and simple automation.<button class="hint-btn" title="Get a hint!">▶</button></li>
             </ul>
           </div>
           <div>
@@ -1623,7 +415,7 @@
           <h3>Operations Manager</h3>
           <p class="experience-meta">Full-service Gas Station · 2–4 years · <span class="experience-status">ACTIVE</span></p>
           <ul>
-            <li class="interactive-entry"><strong>Operations:</strong> Own and run a full-service gas station with a complete team across management, accounting, customer service, and maintenance.<button class="hint-btn" onclick="openHint('gas-station')" title="Get a hint!">▶</button></li>
+            <li class="interactive-entry" onclick="openHint('gas-station')"><strong>Operations:</strong> Own and run a full-service gas station with a complete team across management, accounting, customer service, and maintenance.<button class="hint-btn" title="Get a hint!">▶</button></li>
             <li><strong>Team Leadership:</strong> Plan schedules, train staff, coordinate shifts, and keep communication clear so daily operations stay smooth.</li>
             <li><strong>Suppliers & Inventory:</strong> Manage supplier relationships, monitor stock levels, coordinate deliveries, and control costs while meeting demand.</li>
             <li><strong>Problem-Solving:</strong> Handle unexpected operational issues and high-pressure situations while keeping the business available to customers.</li>
@@ -1635,7 +427,7 @@
           <h3>Cybersecurity & IT Student – Lab Work</h3>
           <p class="experience-meta">Manitoba Institute of Trades and Technology (MITT) · 2024 – Present <span class="experience-status">CURRENT</span></p>
           <ul>
-            <li class="interactive-entry"><strong>Networking:</strong> Built VLAN configurations, inter-VLAN routing, spanning tree (STP), EtherChannel, and DHCP servers in Cisco Packet Tracer labs.<button class="hint-btn" onclick="openHint('student-work')" title="Get a hint!">▶</button></li>
+            <li class="interactive-entry" onclick="openHint('student-work')"><strong>Networking:</strong> Built VLAN configurations, inter-VLAN routing, spanning tree (STP), EtherChannel, and DHCP servers in Cisco Packet Tracer labs.<button class="hint-btn" title="Get a hint!">▶</button></li>
             <li><strong>Systems Administration:</strong> Managed Linux and Windows Server VMs, including accounts, group policies, permissions, and core services.</li>
             <li><strong>Network Security:</strong> Implemented ACLs to restrict management access, applied port security, and disabled insecure services to harden devices.</li>
             <li><strong>Database Work:</strong> Designed and managed PostgreSQL databases with proper table structure, relationships, and SQL queries.</li>
@@ -1713,18 +505,18 @@
 Tips: Click skill entries to unlock hints!
 ════════════════════════════════════════════</div>
 
-        <h2 class="shortcuts-header" style="margin-top: 1.5rem; border-top: 2px solid var(--accent); padding-top: 1rem;">Navigation Links</h2>
+        <h2 class="shortcuts-header shortcuts-nav-header">Navigation Links</h2>
         
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
-          <a href="#home" onclick="closeShortcuts()" style="color: var(--accent-soft); text-decoration: none; padding: 0.5rem; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; text-align: center; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(16,185,129,0.1)'" onmouseout="this.style.background='transparent'">Home</a>
-          <a href="#about" onclick="closeShortcuts()" style="color: var(--accent-soft); text-decoration: none; padding: 0.5rem; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; text-align: center; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(16,185,129,0.1)'" onmouseout="this.style.background='transparent'">About</a>
-          <a href="#skills" onclick="closeShortcuts()" style="color: var(--accent-soft); text-decoration: none; padding: 0.5rem; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; text-align: center; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(16,185,129,0.1)'" onmouseout="this.style.background='transparent'">Skills</a>
-          <a href="#experience" onclick="closeShortcuts()" style="color: var(--accent-soft); text-decoration: none; padding: 0.5rem; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; text-align: center; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(16,185,129,0.1)'" onmouseout="this.style.background='transparent'">Experience</a>
-          <a href="#projects" onclick="closeShortcuts()" style="color: var(--accent-soft); text-decoration: none; padding: 0.5rem; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; text-align: center; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(16,185,129,0.1)'" onmouseout="this.style.background='transparent'">Projects</a>
-          <a href="#education" onclick="closeShortcuts()" style="color: var(--accent-soft); text-decoration: none; padding: 0.5rem; border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; text-align: center; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(16,185,129,0.1)'" onmouseout="this.style.background='transparent'">Education</a>
+        <div class="shortcuts-nav-grid">
+          <a href="#home" onclick="closeShortcuts()" class="shortcuts-nav-link">Home</a>
+          <a href="#about" onclick="closeShortcuts()" class="shortcuts-nav-link">About</a>
+          <a href="#skills" onclick="closeShortcuts()" class="shortcuts-nav-link">Skills</a>
+          <a href="#experience" onclick="closeShortcuts()" class="shortcuts-nav-link">Experience</a>
+          <a href="#projects" onclick="closeShortcuts()" class="shortcuts-nav-link">Projects</a>
+          <a href="#education" onclick="closeShortcuts()" class="shortcuts-nav-link">Education</a>
         </div>
 
-        <div class="ascii-decoration" style="margin-top: 1.5rem;">
+        <div class="ascii-decoration ascii-decoration-spaced">
 Made with ❤️, curiosity, and lots of coffee</div>
       </div>
     </div>
@@ -1738,11 +530,11 @@ Made with ❤️, curiosity, and lots of coffee</div>
           <p>Thanks for visiting my resume! 👋</p>
           <p>I'm Ibrahim, a cybersecurity student and operations manager passionate about building secure systems and leading great teams. Whether it's networking, cloud services, or business operations, I'm always learning and growing.</p>
           <p>Feel free to reach out if you'd like to chat about tech, opportunities, or just say hello. I'd love to connect!</p>
-          <p style="margin-top: 1.5rem;">
+          <p class="sayhi-actions">
             <strong>Get in touch:</strong>
-            <a href="javascript:void(0)" onclick="closeContactModal(); openContactModal('email')" style="color: var(--accent-soft); text-decoration: underline; cursor: pointer;">Email</a> • 
-            <a href="javascript:void(0)" onclick="closeContactModal(); openContactModal('phone')" style="color: var(--accent-soft); text-decoration: underline; cursor: pointer;">Phone</a> • 
-            <a href="javascript:void(0)" onclick="closeContactModal(); openContactModal('github')" style="color: var(--accent-soft); text-decoration: underline; cursor: pointer;">GitHub</a>
+            <a href="javascript:void(0)" onclick="closeContactModal(); openContactModal('email')" class="modal-inline-link">Email</a> • 
+            <a href="javascript:void(0)" onclick="closeContactModal(); openContactModal('phone')" class="modal-inline-link">Phone</a> • 
+            <a href="javascript:void(0)" onclick="closeContactModal(); openContactModal('github')" class="modal-inline-link">GitHub</a>
           </p>
         </div>
       </div>
@@ -1782,22 +574,22 @@ Made with ❤️, curiosity, and lots of coffee</div>
             </div>
           </div>
 
-          <p style="margin-top: 1.5rem; color: var(--text-muted); font-style: italic;">Want to see my projects and contributions? Check out my <a href="https://github.com/Ibrahim-Alkaraki" target="_blank" style="color: var(--accent); text-decoration: underline;">GitHub</a>!</p>
+          <p class="learning-footer">Want to see my projects and contributions? Check out my <a href="https://github.com/Ibrahim-Alkaraki" target="_blank">GitHub</a>!</p>
         </div>
       </div>
     </div>
 
     <!-- Terminal Modal for Script Execution -->
     <div id="scriptModal" class="modal">
-      <div class="modal-content" style="max-height: 75vh; display: flex; flex-direction: column;">
-        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+      <div class="modal-content script-modal-content">
+        <div class="modal-header script-modal-header">
           <span id="scriptTitle">Script Output</span>
-          <span class="close-modal" onclick="closeScriptModal()" style="cursor: pointer; font-size: 1.5rem;">&times;</span>
+          <span class="close-modal" onclick="closeScriptModal()">&times;</span>
         </div>
-        <div id="scriptOutput" style="flex: 1; overflow-y: auto; background: #050810; border: 1px solid var(--border-subtle); padding: 1rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.9rem; color: var(--accent-soft); margin-bottom: 1rem; line-height: 1.4; min-height: 300px;"></div>
-        <div style="display: flex; gap: 0.5rem;">
-          <input type="text" id="scriptInput" class="modal-input" placeholder="Enter input and press Enter..." style="flex: 1;" onkeypress="handleInputKeypress(event);" disabled />
-          <button class="copy-btn" id="sendBtn" onclick="sendScriptInput()" style="margin: 0;" disabled>Send</button>
+        <div id="scriptOutput" class="script-output"></div>
+        <div class="script-input-row">
+          <input type="text" id="scriptInput" class="modal-input" placeholder="Enter input and press Enter..." onkeypress="handleInputKeypress(event);" disabled />
+          <button class="copy-btn" id="sendBtn" onclick="sendScriptInput()" disabled>Send</button>
         </div>
       </div>
     </div>
@@ -1852,8 +644,28 @@ Made with ❤️, curiosity, and lots of coffee</div>
 
       window.onclick = function(event) {
         const modal = document.getElementById('scriptModal');
+        const contactModal = document.getElementById('contactModal');
+        const hintModal = document.getElementById('hintModal');
+        const shortcutsModal = document.getElementById('shortcutsModal');
+        const sayHiModal = document.getElementById('sayHiModal');
+        const learningModal = document.getElementById('learningModal');
         if (event.target === modal) {
           closeScriptModal();
+        }
+        if (event.target === contactModal) {
+          contactModal.style.display = 'none';
+        }
+        if (event.target === hintModal) {
+          hintModal.style.display = 'none';
+        }
+        if (event.target === shortcutsModal) {
+          shortcutsModal.style.display = 'none';
+        }
+        if (event.target === sayHiModal) {
+          sayHiModal.style.display = 'none';
+        }
+        if (event.target === learningModal) {
+          learningModal.style.display = 'none';
         }
       }
     </script>
@@ -1862,9 +674,9 @@ Made with ❤️, curiosity, and lots of coffee</div>
     <div class="floating-help" onclick="openShortcuts()" title="Press ? or click for help">?</div>
 
     <footer>
-      <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div class="footer-inner">
         <div>&copy; 2026 Ibrahim Alkaraki &mdash; Made with <span>&#10084;</span>, Python, and HTML/CSS</div>
-        <div id="statsBar" class="stats-bar"></div>
+        <div id="statsBar" class="stats-bar footer-stats"></div>
       </div>
     </footer>
   </body>
